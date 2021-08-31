@@ -41,4 +41,4 @@ Tinydot is written in test driven development fashion using `pytest`. To run the
 $ python -m pytest
 ```
 
-You should rund the command above in the test directory
+You should run the command above in the test directory
