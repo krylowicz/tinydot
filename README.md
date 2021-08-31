@@ -32,6 +32,8 @@ trace = matrix.trace
 matrix_norm = matrix.norm
 ```
 
+You have to compile C code to .so file. You can do it by running `make` command in the root directory.
+
 ## Testing
 Tinydot is written in test driven development fashion using `pytest`. To run the tests execute the following command:
 
