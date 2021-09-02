@@ -44,9 +44,13 @@ class Tensor:
   def from_shape(self, shape):
     self.shape = shape
     self.rank = len(shape)
-    return LIB().init(self.rank, (c_uint * self.rank)(*shape))
+    self.pointer = LIB().init(self.rank, (c_double * self.rank)(*shape))
 
-  # TODO - add set method
+  def set(self, data):
+    data = flatten(data)
+    c_data = c_double * len(data)
+    LIB().set(c_void_p(self.pointer), (c_data)(*data))
 
-  def get(pointer):
-    return TensorData.from_address(pointer)
+  def get(self):
+    return TensorData.from_address(self.pointer)
+
