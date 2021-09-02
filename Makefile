@@ -1,4 +1,4 @@
-C_SOURCES = $(wildcard tinydot/*.c)
+C_SOURCES = $(wildcard tinydot/lib/*.c)
 CFLAGS = -fPIC -shared
 
 CLANG = /usr/bin/clang
