@@ -1,5 +1,6 @@
 from ctypes import *
 from tinydot.lib import LIB
+from tinydot.utils import flatten
 
 class TensorData(Structure):
   _fields_ = [
@@ -30,22 +31,22 @@ class Tensor:
 
   def __del__(self):
     try:
-      # TODO - destroy pointer form c
-      pass
+      LIB().destory(self.pointer) 
     except AttributeError:
       return
 
   def from_pointer(self, pointer):
     self.pointer = pointer
-    # TODO - add get method
     tensor = self.get()
     self.rank = tensor.rank
     self.shape = tensor.shape
 
-
   def from_shape(self, shape):
-    # TODO - add flatten data
-    data = flatten(data)
+    self.shape = shape
     self.rank = len(shape)
-    # TODO - add tensor init from c library
+    return LIB().init(self.rank, (c_uint * self.rank)(*shape))
 
+  # TODO - add set method
+
+  def get(pointer):
+    return TensorData.from_address(pointer)

@@ -10,4 +10,4 @@ class TestTensor(unittest.TestCase):
     tensor = Tensor([2])
     tensor.set([1, 2])
     self.assertEqual(tensor.shape, [2])
-  
+
