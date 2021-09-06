@@ -27,19 +27,3 @@ void tensor_set(struct Tensor *tensor, double *data) {
     tensor->data[i] = data[i];
 }
 
-double tensor_add(struct Tensor *t1, struct Tensor *t2) {
-  double sum = 0;
-  for (unsigned int i = 0; i < t1->length; i++) {
-    sum += t1->data[i] + t2->data[i];
-  }
-  return sum;
-}
-
-double tensor_sub(struct Tensor *t1, struct Tensor *t2) {
-  double diff = 0;
-  for (unsigned int i = 0; i < t1->length; i++) {
-    diff += t1->data[i] - t2->data[i];
-  }
-  return diff;
-}
-

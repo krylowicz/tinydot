@@ -44,7 +44,7 @@ class Tensor:
   def from_shape(self, shape):
     self.shape = shape
     self.rank = len(shape)
-    self.pointer = LIB().init(self.rank, (c_double * self.rank)(*shape))
+    self.pointer = LIB().init(self.rank, (c_int * self.rank)(*shape))
 
   def set(self, data):
     data = flatten(data)
@@ -53,4 +53,10 @@ class Tensor:
 
   def get(self):
     return TensorData.from_address(self.pointer)
+  
+  @staticmethod
+  def match_shapes(t1, t2):
+    if t1.rank != t2.rank:
+      return False
+    return all(t1.shape[i] == t2.shape[i] for i in range(t1.rank))
 

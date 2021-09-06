@@ -7,7 +7,11 @@ class TestTensor(unittest.TestCase):
       tensor = Tensor(['string'])
 
   def test_from_shape(self):
-    tensor = Tensor([2])
-    tensor.set([1, 2])
-    self.assertEqual(tensor.shape, [2])
+    tensor = Tensor([3, 5, 2])
+    self.assertEqual(tensor.shape, [3, 5, 2])
+
+  def test_print_data(self):
+    tensor = Tensor([2, 2])
+    tensor.set([[1, 2], [3, 4]])
+    self.assertEqual(tensor.get().__str__(), '[1.0, 2.0, 3.0, 4.0]')
 

@@ -13,9 +13,9 @@ class LIB(metaclass=Singleton):
     self.lib = CDLL('../build/c_lib.so')
     
     #tensor / generic methods
-    self.init = self.c_wrapper('tensor_init', c_void_p, [c_uint, POINTER(c_double)])
+    self.init    = self.c_wrapper('tensor_init', c_void_p, [c_uint, POINTER(c_int)])
     self.destroy = self.c_wrapper('tensor_destroy', None, [c_void_p])
-    self.set = self.c_wrapper('tensor_set', None, [c_void_p, POINTER(c_double)])
+    self.set     = self.c_wrapper('tensor_set', None, [c_void_p, POINTER(c_double)])
 
   def c_wrapper(self, funcname, restype, argtypes):
     func = self.lib.__getattr__(funcname)
