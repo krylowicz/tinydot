@@ -13,6 +13,7 @@ class TensorData(Structure):
   def __str__(self):
     return f"{[self.data[i] for i in range(self.length)]}"
 
+# TODO - reshape
 class Tensor:
   def __init__(self, shape=None, pointer=None):
     if pointer:
