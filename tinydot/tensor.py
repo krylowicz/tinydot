@@ -1,6 +1,6 @@
 from ctypes import *
 from tinydot.lib import LIB
-from tinydot.utils import flatten
+from tinydot.utils import flatten, get_value_at_index
 
 class TensorData(Structure):
   _fields_ = [
@@ -52,9 +52,12 @@ class Tensor:
     c_data = c_double * len(data)
     LIB().set(c_void_p(self.pointer), (c_data)(*data))
 
-  def get(self):
+  def get(self, coord=None):
+    if coord:
+      index = get_value_at_index(coord, self.shape)
+      return TensorData.from_address(self.pointer).data[index]
     return TensorData.from_address(self.pointer)
-  
+
   @staticmethod
   def match_shapes(t1, t2):
     if t1.rank != t2.rank:
