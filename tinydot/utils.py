@@ -8,3 +8,11 @@ def flatten(array):
       res.append(item)
   return res
 
+def get_value_at_index(coord, size):
+  mul = 1
+  index = 0
+  for i in range(len(size)):
+    index += mul * coord[i]
+    mul *= size[i]
+  return index
+
