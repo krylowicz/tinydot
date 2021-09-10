@@ -14,7 +14,6 @@ struct Tensor *tensor_init(unsigned int rank, unsigned int *shape) {
   }
 
   tensor->data = malloc(tensor->length * sizeof(double));
-
   return tensor;
 }
 

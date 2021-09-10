@@ -1,6 +1,6 @@
 from ctypes import *
 from tinydot.lib import LIB
-from tinydot.utils import flatten, get_value_at_index
+from tinydot.utils import flatten, get_index
 
 class TensorData(Structure):
   _fields_ = [
@@ -35,6 +35,11 @@ class Tensor:
       LIB().destory(self.pointer) 
     except AttributeError:
       return
+  
+  @property
+  def data(self):
+    #TODO - ???
+    pass
 
   def from_pointer(self, pointer):
     self.pointer = pointer
@@ -54,7 +59,7 @@ class Tensor:
 
   def get(self, coord=None):
     if coord:
-      index = get_value_at_index(coord, self.shape)
+      index = get_index(coord, self.shape)
       return TensorData.from_address(self.pointer).data[index]
     return TensorData.from_address(self.pointer)
 
