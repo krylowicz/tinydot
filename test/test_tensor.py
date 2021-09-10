@@ -19,12 +19,13 @@ class TestTensor(unittest.TestCase):
   def test_get_value_at_index(self):
     t1 = Tensor([2, 3])
     t1.set([[1, 2, 3], [4, 5, 6]])
-    self.assertEqual(tensor.get([1, 1]), 5.0)
+    self.assertEqual(t1.get([1, 1]), 5.0)
     
     t2 = Tensor([3, 2, 1])
     t2.set([
-      [[1.0], [2.0], [3,0]],
-      [[4.0], [5.0], [6.0]]
+      [[1], [2]],
+      [[3], [4]],
+      [[5], [6]]
     ])
-    self.assertEqual(tensor.get([1, 1, 0]), 5.0)
+    self.assertEqual(t2.get([2, 0, 0]), 5.0)
 
