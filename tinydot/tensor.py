@@ -1,6 +1,6 @@
 from ctypes import *
 from tinydot.lib import LIB
-from tinydot.utils import flatten, get_index
+from tinydot.utils import flatten, get_index, reshape
 
 class TensorData(Structure):
   _fields_ = [
@@ -13,7 +13,6 @@ class TensorData(Structure):
   def __str__(self):
     return f"{[self.data[i] for i in range(self.length)]}"
 
-# TODO - reshape
 class Tensor:
   def __init__(self, shape=None, pointer=None):
     if pointer:
@@ -37,9 +36,14 @@ class Tensor:
       return
   
   @property
+  def length(self):
+    return TensorData.from_address(self.pointer).length
+    
+  @property
   def data(self):
-    #TODO - ???
-    pass
+    #TODO - reshape
+    data = [self.get().data[i] for i in range(self.length)]
+    return reshape(data, self.shape)
 
   def from_pointer(self, pointer):
     self.pointer = pointer

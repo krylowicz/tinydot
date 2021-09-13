@@ -13,8 +13,7 @@ class TestTensor(unittest.TestCase):
   def test_print_data(self):
     tensor = Tensor([2, 2])
     tensor.set([[1, 2], [3, 4]])
-    # TODO - need a better way
-    self.assertEqual(tensor.get().__str__(), '[1.0, 2.0, 3.0, 4.0]')
+    self.assertEqual(tensor.data, [1.0, 2.0, 3.0, 4.0])
 
   def test_get_value_at_index(self):
     t1 = Tensor([2, 3])

@@ -16,3 +16,7 @@ def get_index(coord, shape):
     mul *= shape[i]
   return index
 
+def reshape(array, shape):
+  print(array, shape)
+  return array
+
