@@ -17,6 +17,17 @@ def get_index(coord, shape):
   return index
 
 def reshape(array, shape):
-  print(array, shape)
-  return array
+  if len(shape) == 1:
+    return array
+
+  result = []
+  
+  span = 1
+  for i in shape[1:]:
+    span *= i
+  
+  for offset in range(0, len(array), span):
+    result.append(reshape(array[offset:offset+span], shape[1:]))
+
+  return result
 

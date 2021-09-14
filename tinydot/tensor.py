@@ -41,9 +41,7 @@ class Tensor:
     
   @property
   def data(self):
-    #TODO - reshape
-    data = [self.get().data[i] for i in range(self.length)]
-    return reshape(data, self.shape)
+    return reshape([self.get().data[i] for i in range(self.length)], self.shape)
 
   def from_pointer(self, pointer):
     self.pointer = pointer
