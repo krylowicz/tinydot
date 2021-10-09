@@ -44,9 +44,6 @@ class TestTensor(unittest.TestCase):
       [1, 1]
     ])
 
-  def test_random(self):
-    pass
-
   def test_add(self):
     t1 = Tensor([2, 2])
     t1.set([
