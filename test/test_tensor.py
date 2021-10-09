@@ -10,7 +10,7 @@ class TestTensor(unittest.TestCase):
     tensor = Tensor([3, 2, 5])
     self.assertEqual(tensor.shape, [3, 2, 5])
 
-  def test_print_data(self):
+  def test_data(self):
     tensor = Tensor([2, 2])
     tensor.set([[1, 2], [3, 4]])
     self.assertEqual(tensor.data, [[1.0, 2.0], [3.0, 4.0]])
@@ -27,4 +27,26 @@ class TestTensor(unittest.TestCase):
       [[5], [6]]
     ])
     self.assertEqual(t2.get([2, 0, 0]), 5.0)
+
+  def test_zeroes(self):
+    pass
+
+  def test_ones(self):
+    pass
+
+  def test_add(self):
+    t1 = Tensor([2, 2])
+    t1.set([
+      [1, 2],
+      [3, 4]
+    ])
+    
+    t2 = Tensor([2, 2])
+    t2.set([
+      [4, 3],
+      [2, 1]
+    ])
+    
+    tensor = Tensor.add(t1, t2)
+    self.assertEqual(tensor.data, [[5.0, 5.0], [5.0, 5.0]])
 

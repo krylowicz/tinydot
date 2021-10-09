@@ -10,8 +10,8 @@ class TensorData(Structure):
     ('data', POINTER(c_double))
   ]
 
-  def __str__(self):
-    return f"{[self.data[i] for i in range(self.length)]}"
+  #def __str__(self):
+  #  return f"{[self.data[i] for i in range(self.length)]}"
 
 class Tensor:
   def __init__(self, shape=None, pointer=None):
@@ -47,7 +47,7 @@ class Tensor:
     self.pointer = pointer
     tensor = self.get()
     self.rank = tensor.rank
-    self.shape = tensor.shape
+    self.shape = [tensor.shape[i] for i in range(self.rank)]
 
   def from_shape(self, shape):
     self.shape = shape
@@ -64,6 +64,11 @@ class Tensor:
       index = get_index(coord, self.shape)
       return TensorData.from_address(self.pointer).data[index]
     return TensorData.from_address(self.pointer)
+
+  @classmethod
+  def add(cls, t1, t2):
+    pointer = LIB().add(t1.pointer, t2.pointer)
+    return cls(pointer=pointer)
 
   @staticmethod
   def match_shapes(t1, t2):

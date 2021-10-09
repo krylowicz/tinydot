@@ -16,6 +16,7 @@ class LIB(metaclass=Singleton):
     self.init    = self.c_wrapper('tensor_init', c_void_p, [c_uint, POINTER(c_int)])
     self.destroy = self.c_wrapper('tensor_destroy', None, [c_void_p])
     self.set     = self.c_wrapper('tensor_set', None, [c_void_p, POINTER(c_double)])
+    self.add     = self.c_wrapper('tensor_add', c_void_p, [c_void_p, c_void_p])
 
   def c_wrapper(self, funcname, restype, argtypes):
     func = self.lib.__getattr__(funcname)
