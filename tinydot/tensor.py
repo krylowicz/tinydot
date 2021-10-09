@@ -65,6 +65,9 @@ class Tensor:
       return TensorData.from_address(self.pointer).data[index]
     return TensorData.from_address(self.pointer)
 
+  def reshape(self, shape):
+    self.shape = shape
+
   @classmethod
   def add(cls, t1, t2):
     if Tensor.match_shapes(t1, t2):

@@ -15,6 +15,16 @@ class TestTensor(unittest.TestCase):
     tensor.set([[1, 2], [3, 4]])
     self.assertEqual(tensor.data, [[1.0, 2.0], [3.0, 4.0]])
 
+  def test_reshape(self):
+    tensor = Tensor([3, 2])
+    tensor.set([
+      [1, 2],
+      [3, 4],
+      [5, 6]
+    ])
+    tensor.reshape((2, 3))
+    self.assertEqual(tensor.data, [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]])
+
   def test_get_value_at_index(self):
     t1 = Tensor([2, 3])
     t1.set([[1, 2, 3], [4, 5, 6]])
