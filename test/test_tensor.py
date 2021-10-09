@@ -28,10 +28,23 @@ class TestTensor(unittest.TestCase):
     ])
     self.assertEqual(t2.get([2, 0, 0]), 5.0)
 
-  def test_zeroes(self):
-    pass
+  def test_zeros(self):
+    tensor = Tensor.zeros([3, 2, 1])  
+    self.assertEqual(tensor.data, [
+      [[0], [0]],
+      [[0], [0]],
+      [[0], [0]]
+    ])
 
   def test_ones(self):
+    tensor = Tensor.ones([3, 2])
+    self.assertEqual(tensor.data, [
+      [1, 1],
+      [1, 1],
+      [1, 1]
+    ])
+
+  def test_random(self):
     pass
 
   def test_add(self):

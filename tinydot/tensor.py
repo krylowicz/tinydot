@@ -67,7 +67,22 @@ class Tensor:
 
   @classmethod
   def add(cls, t1, t2):
-    pointer = LIB().add(t1.pointer, t2.pointer)
+    if Tensor.match_shapes(t1, t2):
+      pointer = LIB().add(t1.pointer, t2.pointer)
+      return cls(pointer=pointer)
+
+  @classmethod
+  def zeros(cls, shape):
+    rank = len(shape)
+    c_data = c_int * rank
+    pointer = LIB().zeros(rank, (c_data)(*shape))
+    return cls(pointer=pointer)
+
+  @classmethod
+  def ones(cls, shape):
+    rank = len(shape)
+    c_data = c_int * rank
+    pointer = LIB().ones(rank, (c_data)(*shape))
     return cls(pointer=pointer)
 
   @staticmethod

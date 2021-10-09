@@ -39,3 +39,26 @@ struct Tensor *tensor_add(struct Tensor *t1, struct Tensor *t2) {
   return result;
 } 
 
+struct Tensor *zeros(unsigned int rank, unsigned int *shape) {
+  struct Tensor *tensor = tensor_init(rank, shape);
+  double *data = calloc(tensor->length, sizeof(double));
+  
+  tensor->data = data;
+  free(data);
+
+  return tensor;
+}
+
+struct Tensor *ones(unsigned int rank, unsigned int *shape) {
+  struct Tensor *tensor = tensor_init(rank, shape);
+  double *data = malloc(tensor->length * sizeof(double));
+
+  for (unsigned int i = 0; i < tensor->length; i++)
+    data[i] = 1.0;
+  
+  tensor->data = data;
+  free(data);
+
+  return tensor;
+}
+
