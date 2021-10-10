@@ -20,6 +20,11 @@ class LIB(metaclass=Singleton):
     self.zeros   = self.c_wrapper('zeros', c_void_p, [c_uint, POINTER(c_int)])
     self.ones    = self.c_wrapper('ones', c_void_p, [c_uint, POINTER(c_int)])
 
+    #matrix methods
+    self.norm    = self.c_wrapper('matrix_norm', c_double, [c_void_p])
+    self.trace   = self.c_wrapper('matrix_trace', c_double, [c_void_p])
+    self.T       = self.c_wrapper('matrix_transpose', None, [c_void_p])
+
   def c_wrapper(self, funcname, restype, argtypes):
     func = self.lib.__getattr__(funcname)
     func.restype = restype
