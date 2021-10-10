@@ -68,6 +68,11 @@ class Tensor:
   def reshape(self, shape):
     self.shape = shape
 
+  def copy(self):
+    tensor = Tensor.zeros(self.shape)
+    tensor.set(flatten(self.data))
+    return tensor
+
   @classmethod
   def add(cls, t1, t2):
     if Tensor.match_shapes(t1, t2):
