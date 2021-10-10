@@ -30,3 +30,17 @@ class TestMatrix(unittest.TestCase):
     ])
     self.assertEqual(matrix.trace, 1)
 
+  def test_det(self):
+    m1 = Matrix([
+      [1, 2],
+      [3, 4]
+    ])
+    self.assertEqual(m1.det, -2)
+
+    m2 = Matrix([
+      [6, 1, 1],
+      [4, -2, 5],
+      [2, 8, 7]
+    ])
+    self.assertEqual(m2.det, -306)
+

@@ -25,3 +25,7 @@ class Matrix(Tensor):
     self.shape = self.shape[::-1]
     return LIB().T(self.pointer)
 
+  @property
+  def det(self):
+    return LIB().det(self.pointer, self.copy().pointer)
+

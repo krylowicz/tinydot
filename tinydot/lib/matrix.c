@@ -44,5 +44,29 @@ void matrix_transpose(struct Tensor *tensor) {
       data[i * rows + j] = tensor->data[j * cols + i];
   }
 
+  tensor->shape[0] = cols;
+  tensor->shape[1] = rows;
   tensor->data = data;
 }
+
+double matrix_determinant(struct Tensor *tensor, struct Tensor *ct) {
+  int rows = tensor->shape[0];
+
+  for (unsigned int fd = 0; fd < rows; fd++) {
+    for (unsigned int i = fd + 1; i < rows; i++) {
+      if (ct->data[fd * rows + fd] == 0)
+        ct->data[fd * rows + fd] = 1.0e-18;
+
+      double cr = ct->data[i * rows + fd] / ct->data[fd * rows + fd];
+      for (unsigned int j = 0; j < rows; j++)
+        ct->data[i * rows + j] = ct->data[i * rows + j] - cr * ct->data[fd * rows + j];
+    }
+  }
+  
+  double det = 1.0;
+  for (unsigned int i = 0; i < rows; i++)
+    det *= ct->data[i * rows + i];
+  
+  return det;
+}
+
