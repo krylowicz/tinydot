@@ -21,6 +21,12 @@ void tensor_destroy(struct Tensor *tensor) {
   free(tensor);
 }
 
+struct Tensor *tensor_copy(struct Tensor *tensor) {
+  struct Tensor *new_tensor = zeros(tensor->rank, tensor->shape);
+  new_tensor->data = tensor->data;
+  return new_tensor;
+}
+
 void tensor_set(struct Tensor *tensor, double *data) {
   for (unsigned int i = 0; i < tensor->length; i++)
     tensor->data[i] = data[i];

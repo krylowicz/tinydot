@@ -15,6 +15,7 @@ class LIB(metaclass=Singleton):
     #tensor / generic methods
     self.init    = self.c_wrapper('tensor_init', c_void_p, [c_uint, POINTER(c_int)])
     self.destroy = self.c_wrapper('tensor_destroy', None, [c_void_p])
+    self.copy    = self.c_wrapper('tensor_copy', c_void_p, [c_void_p])
     self.set     = self.c_wrapper('tensor_set', None, [c_void_p, POINTER(c_double)])
     self.add     = self.c_wrapper('tensor_add', c_void_p, [c_void_p, c_void_p])
     self.zeros   = self.c_wrapper('zeros', c_void_p, [c_uint, POINTER(c_int)])

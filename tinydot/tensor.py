@@ -69,9 +69,8 @@ class Tensor:
     self.shape = shape
 
   def copy(self):
-    tensor = Tensor.zeros(self.shape)
-    tensor.set(flatten(self.data))
-    return tensor
+    pointer = LIB().copy(self.pointer)
+    return Tensor(pointer=pointer)
 
   @classmethod
   def add(cls, t1, t2):
