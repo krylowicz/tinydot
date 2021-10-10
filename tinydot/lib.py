@@ -20,6 +20,7 @@ class LIB(metaclass=Singleton):
     self.add     = self.c_wrapper('tensor_add', c_void_p, [c_void_p, c_void_p])
     self.zeros   = self.c_wrapper('zeros', c_void_p, [c_uint, POINTER(c_int)])
     self.ones    = self.c_wrapper('ones', c_void_p, [c_uint, POINTER(c_int)])
+    self.rand_seed = self.c_wrapper('rand_seed', c_void_p, [c_uint, POINTER(c_int), c_uint])
 
     #matrix methods
     self.norm    = self.c_wrapper('matrix_norm', c_double, [c_void_p])

@@ -92,6 +92,14 @@ class Tensor:
     pointer = LIB().ones(rank, (c_data)(*shape))
     return cls(pointer=pointer)
 
+  @classmethod
+  def rand(cls, shape, seed=None):
+    if seed:
+      rank = len(shape)
+      c_data = c_int * rank
+      pointer = LIB().rand_seed(rank, (c_data)(*shape), seed)
+      return Tensor(pointer=pointer)
+
   @staticmethod
   def match_shapes(t1, t2):
     if t1.rank != t2.rank:

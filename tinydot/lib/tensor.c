@@ -60,3 +60,14 @@ struct Tensor *ones(unsigned int rank, unsigned int *shape) {
   return tensor;
 }
 
+struct Tensor *rand_seed(unsigned int rank, unsigned int *shape, unsigned int seed) {
+  struct Tensor *tensor = tensor_init(rank, shape);
+
+  srand(seed);
+  for (unsigned int i = 0; i < tensor->length; i++) {
+    tensor->data[i] = (double)rand() / RAND_MAX;
+  }
+
+  return tensor;
+}
+
