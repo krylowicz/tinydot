@@ -43,4 +43,13 @@ class TestMatrix(unittest.TestCase):
       [2, 8, 7]
     ])
     self.assertEqual(m2.det, -306)
+  
+  def test_identity(self):
+    matrix = Matrix.identity([4, 4])
+    self.assertEqual(matrix.data, [
+      [1.0, 0.0, 0.0, 0.0],
+      [0.0, 1.0, 0.0, 0.0],
+      [0.0, 0.0, 1.0, 0.0],
+      [0.0, 0.0, 0.0, 1.0]
+    ])
 

@@ -1,13 +1,18 @@
 from ctypes import *
 from tinydot.lib import LIB
-from tinydot.tensor import Tensor
+from tinydot.tensor import Tensor, TensorData
 
 class Matrix(Tensor):
-  def __init__(self, data):
-    self.rows = len(data)
-    self.cols = len(data[0])
-    super().__init__([self.rows, self.cols])
-    self.set(data)
+  def __init__(self, data=None, pointer=None):
+    if pointer:
+      super().__init__(pointer=pointer)
+      self.rows = len(self.data)
+      self.cols = len(self.data[0])
+    else:
+      self.rows = len(data)
+      self.cols = len(data[0])
+      super().__init__([self.rows, self.cols])
+      self.set(data)
 
   def __str__(self):
     return f"<Matrix with shape {self.shape}>"
@@ -29,3 +34,6 @@ class Matrix(Tensor):
   def det(self):
     return LIB().det(self.pointer, self.copy().pointer)
 
+  @classmethod
+  def identity(self, shape):
+    pass
