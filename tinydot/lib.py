@@ -26,7 +26,7 @@ class LIB(metaclass=Singleton):
     self.norm    = self.c_wrapper('matrix_norm', c_double, [c_void_p])
     self.trace   = self.c_wrapper('matrix_trace', c_double, [c_void_p])
     self.T       = self.c_wrapper('matrix_transpose', None, [c_void_p])
-    self.det     = self.c_wrapper('matrix_determinant', c_double, [c_void_p, c_void_p])
+    self.det     = self.c_wrapper('matrix_determinant', c_double, [c_void_p])
     self.identity= self.c_wrapper('matrix_identity', c_void_p, [c_uint, POINTER(c_int)])
 
   def c_wrapper(self, funcname, restype, argtypes):

@@ -32,7 +32,7 @@ class Matrix(Tensor):
 
   @property
   def det(self):
-    return LIB().det(self.pointer, self.copy().pointer)
+    return LIB().det(self.pointer)
 
   @classmethod
   def identity(cls, shape):

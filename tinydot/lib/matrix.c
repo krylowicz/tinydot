@@ -49,8 +49,9 @@ void matrix_transpose(struct Tensor *tensor) {
   tensor->data = data;
 }
 
-double matrix_determinant(struct Tensor *tensor, struct Tensor *ct) {
+double matrix_determinant(struct Tensor *tensor) {
   int rows = tensor->shape[0];
+  struct Tensor *ct = tensor_copy(tensor);
 
   for (unsigned int fd = 0; fd < rows; fd++) {
     for (unsigned int i = fd + 1; i < rows; i++) {

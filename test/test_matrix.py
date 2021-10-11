@@ -52,4 +52,19 @@ class TestMatrix(unittest.TestCase):
       [0.0, 0.0, 1.0, 0.0],
       [0.0, 0.0, 0.0, 1.0]
     ])
+  
+  def test_inv(self):
+    matrix = Matrix([
+      [5., 3., 1.],
+      [3., 9., 4.],
+      [1., 3., 5.]
+    ])
+    
+    inv = matrix.inv()
+
+    self.assertEqual(inv.data, [
+      [ 0.25,  -0.091,  0.023],
+      [-0.083,  0.182, -0.129],
+      [ 0.,    -0.091,  0.273]
+    ])
 
