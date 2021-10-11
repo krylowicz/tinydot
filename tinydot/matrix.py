@@ -1,6 +1,6 @@
 from ctypes import *
 from tinydot.lib import LIB
-from tinydot.tensor import Tensor, TensorData
+from tinydot.tensor import Tensor
 
 class Matrix(Tensor):
   def __init__(self, data=None, pointer=None):
@@ -35,5 +35,9 @@ class Matrix(Tensor):
     return LIB().det(self.pointer, self.copy().pointer)
 
   @classmethod
-  def identity(self, shape):
-    pass
+  def identity(cls, shape):
+    rank = len(shape)
+    c_data = c_int * rank
+    pointer = LIB().identity(rank, (c_data)(*shape))
+    return cls(pointer=pointer)
+

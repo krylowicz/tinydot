@@ -70,3 +70,13 @@ double matrix_determinant(struct Tensor *tensor, struct Tensor *ct) {
   return det;
 }
 
+struct Tensor *matrix_identity(unsigned int rank, unsigned int *shape) {
+  struct Tensor *matrix = zeros(rank, shape);
+  int rows = matrix->shape[0];
+
+  for (unsigned int i = 0; i < rows; i++) 
+    matrix->data[i * rows + i] = 1.0;
+
+  return matrix;
+}
+
