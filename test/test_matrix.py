@@ -68,3 +68,23 @@ class TestMatrix(unittest.TestCase):
       [ 0.,    -0.091,  0.273]
     ])
 
+  def test_matmul(self):
+    A = Matrix([
+      [1, 2, 3],
+      [3, 4, 2],
+      [3, 2, 1]
+    ])
+
+    B = Matrix([
+      [1, 1, 1],
+      [3, 4, 2],
+      [3, 2, 1]
+    ])
+    
+    C = Matrix.matmul(A, B)
+    self.assertEqual(C.data, [
+      [16.0, 15.0, 8.0],
+      [21.0, 23.0, 13.0],
+      [12.0, 13.0, 8.0]
+    ])
+  

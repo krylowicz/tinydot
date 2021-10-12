@@ -41,3 +41,8 @@ class Matrix(Tensor):
     pointer = LIB().identity(rank, (c_data)(*shape))
     return cls(pointer=pointer)
 
+  @classmethod
+  def matmul(cls, A, B):
+    pointer = LIB().matmul(A.pointer, B.pointer)
+    return cls(pointer=pointer)
+

@@ -81,3 +81,23 @@ struct Tensor *matrix_identity(unsigned int rank, unsigned int *shape) {
   return matrix;
 }
 
+struct Tensor *matmul(struct Tensor *A, struct Tensor *B) {
+  int A_rows = A->shape[0];
+  int A_cols = A->shape[1];
+  int B_rows = A->shape[0];
+  int B_cols = B->shape[1];
+  unsigned int shape[2] = {A_rows, B_cols};
+  struct Tensor *C = zeros(2, shape);
+ 
+  for (unsigned int i = 0; i < A_rows; i++) {
+    for (unsigned int j = 0; j < B_cols; j++) {
+      double total = 0.0;
+      for (unsigned int ii = 0; ii < A_cols; ii++)
+        total += A->data[i * A_rows + ii] * B->data[ii * B_rows + j];
+      C->data[i * A_rows + j] = total;
+    }
+  }
+
+  return C;
+}
+

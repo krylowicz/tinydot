@@ -28,6 +28,7 @@ class LIB(metaclass=Singleton):
     self.T       = self.c_wrapper('matrix_transpose', None, [c_void_p])
     self.det     = self.c_wrapper('matrix_determinant', c_double, [c_void_p])
     self.identity= self.c_wrapper('matrix_identity', c_void_p, [c_uint, POINTER(c_int)])
+    self.matmul  = self.c_wrapper('matmul', c_void_p, [c_void_p, c_void_p])
 
   def c_wrapper(self, funcname, restype, argtypes):
     func = self.lib.__getattr__(funcname)
