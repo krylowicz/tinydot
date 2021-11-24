@@ -94,9 +94,9 @@ class Tensor:
 
   @classmethod
   def rand(cls, shape, seed=None):
-    rank = len(shape)
-    c_data = rank * c_int
     if seed:
+      rank = len(shape)
+      c_data = rank * c_int
       pointer = LIB().rand(rank, (c_data)(*shape), seed)
       return Tensor(pointer=pointer)
     

@@ -20,14 +20,12 @@ def reshape(array, shape):
   if len(shape) == 1:
     return array
 
-  result = []
-  
   span = 1
   for i in shape[1:]:
     span *= i
-  
-  for offset in range(0, len(array), span):
-    result.append(reshape(array[offset:offset+span], shape[1:]))
 
-  return result
+  return [
+      reshape(array[offset:offset + span], shape[1:])
+      for offset in range(0, len(array), span)
+  ]
 
