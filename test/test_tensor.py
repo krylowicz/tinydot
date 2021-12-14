@@ -62,7 +62,7 @@ class TestTensor(unittest.TestCase):
   def test_rand_seed(self):
     tensor = Tensor.rand([3, 2], seed=42)
     self.assertEqual(tensor.data, [
-      [0.00032870750889587566, 0.5245871020129822], 
+      [0.00032870750889587566, 0.5245871020129822],
       [0.7354235321913956, 0.26330554078487006],
       [0.37622397131110724, 0.19628582577979464]
     ])

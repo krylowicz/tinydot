@@ -1,3 +1,4 @@
+from pathlib import Path
 from ctypes import *
 
 class Singleton(type):
@@ -10,8 +11,8 @@ class Singleton(type):
 
 class LIB(metaclass=Singleton):
   def __init__(self):
-    self.lib = CDLL('../build/c_lib.so')
-    
+    self.lib = CDLL(Path().resolve() / 'build/c_lib.so')
+
     #tensor / generic methods
     self.init    = self.c_wrapper('tensor_init',        c_void_p, [c_uint, POINTER(c_int)])
     self.destroy = self.c_wrapper('tensor_destroy',     None,     [c_void_p])
