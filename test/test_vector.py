@@ -1,0 +1,53 @@
+import unittest
+from tinydot.vector import Vector
+
+class TestVector(unittest.TestCase):
+  def test_length(self):
+    v = Vector(1, -4, 3)
+    self.assertEqual(v.length, 3)
+
+  def test_add_wrong_length(self):
+    with self.assertRaises(Exception):
+      v1 = Vector(1, 6)
+      v2 = Vector(-1, 5, 6)
+      v3 = v1 + v2
+
+  def test_add(self):
+    v1 = Vector(1, 6)
+    v2 = Vector(-2, 5)
+    res = v1 + v2
+    self.assertEqual(res.data, (-1, 11))
+
+  def test_sub(self):
+    v1 = Vector(1, -5.2, 8)
+    v2 = Vector(6, 2, 8.5)
+    res = v1 - v2
+    self.assertEqual(res.data, (-5, -7.2, -0.5))
+
+  def test_scalar_mul(self):
+    v1 = Vector(2.3, -8.19)
+    res = -4 * v1
+    self.assertEqual(res.data, (-9.2, 32.76))
+
+  def test_dot(self):
+    v1 = Vector(1, 3)
+    v2 = Vector(2, 4)
+    res1 = v1 * v2
+    self.assertEqual(res1.data, 14)
+
+    v3 = Vector(5.931, -4.234)
+    v4 = Vector(9.072, 4.432)
+    res2 = v3 * v4
+    self.assertEqual(res2.data, 35.040943999999996)
+
+  def test_norm(self):
+    vector = Vector(2, -3, 6)
+    self.assertEqual(vector.norm, 7)
+
+  def test_zeros(self):
+    vector = Vector.zeroes(4)
+    self.assertEqual(vector.data, (0, 0, 0, 0))
+
+  def test_ones(self):
+    vector = Vector.zeroes(3)
+    self.assertEqual(vector.data, (1, 1, 1))
