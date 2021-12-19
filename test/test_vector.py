@@ -51,3 +51,21 @@ class TestVector(unittest.TestCase):
   def test_ones(self):
     vector = Vector.zeroes(3)
     self.assertEqual(vector.data, (1, 1, 1))
+
+  def test_angle(self):
+    v1 = Vector(4, 3)
+    v2 = Vector(2, 5)
+    self.assertEqual(Vector.angle(v1, v2), 0.5467888408892473)
+
+    v3 = Vector(4, 2)
+    v4 = Vector(-5, 1)
+    self.assertEqual(Vector.angle(v3, v4, degrees=True), 142.12501634890182)
+
+  def test_rotate(self):
+    v1 = Vector(3, 4)
+    v1.rotate(30)
+    self.assertEqual(v1.data, (4.598076211353316, 1.964101615137755))
+
+    v2 = Vector(3.7, -8.259)
+    v2.rotate(-47)
+    self.assertEqual(v2.data, (8.56364415390397347, -2.926615759765244))

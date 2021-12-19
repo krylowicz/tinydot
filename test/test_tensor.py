@@ -4,7 +4,7 @@ from tinydot.tensor import Tensor
 class TestTensor(unittest.TestCase):
   def test_wrong_shape_type(self):
     with self.assertRaises(TypeError):
-      tensor = Tensor(['string'])
+      Tensor(['string'])
 
   def test_from_shape(self):
     tensor = Tensor([3, 2, 5])

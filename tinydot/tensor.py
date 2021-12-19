@@ -16,6 +16,9 @@ class TensorData(Structure):
 class Tensor:
   def __init__(self, shape=None, pointer=None):
     if pointer:
+      self.pointer = None
+      self.rank = None
+      self.shape = None
       self.from_pointer(pointer)
     elif shape:
       if all(isinstance(v, (int, float)) for v in shape):
