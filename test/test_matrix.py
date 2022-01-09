@@ -88,6 +88,13 @@ class TestMatrix(unittest.TestCase):
       [21.0, 23.0, 13.0],
       [12.0, 13.0, 8.0]
     ])
+
+    D = A @ B
+    self.assertEqual(D.data, [
+      [16.0, 15.0, 8.0],
+      [21.0, 23.0, 13.0],
+      [12.0, 13.0, 8.0]
+    ])
   
 
   def test_dot(self):
@@ -109,3 +116,13 @@ class TestMatrix(unittest.TestCase):
       [21.0, 23.0, 13.0],
       [12.0, 13.0, 8.0]
     ])
+
+  def test_mul(self):
+    A = Matrix([
+      [1, 2, 3],
+      [3, 4, 2],
+      [3, 2, 1]
+    ])
+
+    matrix = A * 2
+    self.assertEqual(matrix.data, [[2.0, 4.0, 6.0], [6.0, 8.0, 4.0], [6.0, 4.0, 2.0]])

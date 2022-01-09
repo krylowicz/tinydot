@@ -17,6 +17,9 @@ class Matrix(Tensor):
   def __str__(self):
     return f"<Matrix with shape {self.shape}>"
 
+  def __matmul__(self, other):
+    return self.matmul(self, other)
+
   @property
   def norm(self):
     return LIB().norm(self.pointer)
@@ -48,11 +51,11 @@ class Matrix(Tensor):
 
   @classmethod
   def matmul(cls, a, b):
-    # TODO - add * or @ operator
     pointer = LIB().matmul(a.pointer, b.pointer)
     return cls(pointer=pointer)
 
   # matmul is preferred over dot
+  # overrides Tensor dot method
   @classmethod
   def dot(cls, a, b):
     return cls.matmul(a, b)
