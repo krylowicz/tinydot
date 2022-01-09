@@ -26,7 +26,7 @@ class TestVector(unittest.TestCase):
 
   def test_scalar_mul(self):
     v1 = Vector(2.3, -8.19)
-    res = -4 * v1
+    res = v1 * -4
     self.assertEqual(res.data, [-9.2, 32.76])
 
   def test_dot(self):
