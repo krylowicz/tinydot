@@ -32,6 +32,9 @@ class Tensor:
   def __str__(self):
     return f"<Tensor with shape {self.shape}>"
 
+  def __add__(self, other):
+    return self.add(self, other)
+
   def __mul__(self, other):
     return self.mul(self, other)
 
@@ -100,6 +103,15 @@ class Tensor:
     c_data = c_int * rank
     pointer = LIB().zeros(rank, (c_data)(*shape))
     return cls(pointer=pointer)
+
+  # # TODO - Tensor dot product
+  # @classmethod
+  # def dot(cls, t1, t2):
+  #   if Tensor.match_shapes(t1, t2):
+  #     pointer = LIB().dot(t1.pointer, t2.pointer)
+  #     return cls(pointer=pointer)
+  #   else:
+  #     raise ValueError("Tensors must have matching shapes")
 
   @classmethod
   def ones(cls, shape):
