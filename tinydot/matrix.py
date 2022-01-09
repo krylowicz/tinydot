@@ -26,13 +26,18 @@ class Matrix(Tensor):
     return LIB().trace(self.pointer)
 
   @property
-  def T(self):
-    self.shape = self.shape[::-1]
-    return LIB().T(self.pointer)
-
-  @property
   def det(self):
     return LIB().det(self.pointer)
+
+  @property
+  def T(self):
+    return self.transpose()
+
+  def transpose(self):
+    # TODO - return shape from C
+    # shape comes from parent class
+    self.shape = self.shape[::-1]
+    return LIB().T(self.pointer)
 
   @classmethod
   def identity(cls, shape):
@@ -42,7 +47,11 @@ class Matrix(Tensor):
     return cls(pointer=pointer)
 
   @classmethod
-  def matmul(cls, A, B):
-    pointer = LIB().matmul(A.pointer, B.pointer)
+  def matmul(cls, a, b):
+    # TODO - add * or @ operator
+    pointer = LIB().matmul(a.pointer, b.pointer)
     return cls(pointer=pointer)
 
+  @classmethod
+  def dot(cls, a, b):
+    return cls.matmul(a, b)
