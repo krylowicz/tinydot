@@ -46,11 +46,11 @@ class TestVector(unittest.TestCase):
 
   def test_zeros(self):
     vector = Vector.zeros(4)
-    self.assertEqual(vector.data, (0, 0, 0, 0))
+    self.assertEqual(vector.data, [0.0, 0.0, 0.0, 0.0])
 
   def test_ones(self):
     vector = Vector.ones(3)
-    self.assertEqual(vector.data, (1, 1, 1))
+    self.assertEqual(vector.data, [1.0, 1.0, 1.0])
 
   def test_angle(self):
     v1 = Vector(4, 3)

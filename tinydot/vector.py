@@ -24,7 +24,7 @@ class Vector(Matrix):
       return self.mul(self, other)
     else:
       raise TypeError(f"Can't multiply Vector with type {type(other)}")
-  
+
   @classmethod
   def dot(cls, v1, v2):
     if Tensor.match_shapes(v1, v2):

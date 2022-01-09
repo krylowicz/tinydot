@@ -99,6 +99,9 @@ class Tensor:
 
   @classmethod
   def zeros(cls, shape):
+    if isinstance(shape, int):
+      shape = [shape]
+
     rank = len(shape)
     c_data = c_int * rank
     pointer = LIB().zeros(rank, (c_data)(*shape))
@@ -115,6 +118,9 @@ class Tensor:
 
   @classmethod
   def ones(cls, shape):
+    if isinstance(shape, int):
+      shape = [shape]
+      
     rank = len(shape)
     c_data = c_int * rank
     pointer = LIB().ones(rank, (c_data)(*shape))
