@@ -83,3 +83,12 @@ class TestTensor(unittest.TestCase):
     tensor = Tensor.add(t1, t2)
     self.assertEqual(tensor.data, [[5.0, 5.0], [5.0, 5.0]])
 
+  def test_mul(self):
+    t1 = Tensor([2, 2])
+    t1.set([
+      [4, 3],
+      [2, 1]
+    ])
+
+    tensor = Tensor.mul(t1, 2.0)
+    self.assertEqual(tensor.data, [[8.0, 6.0], [4.0, 2.0]])

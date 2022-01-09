@@ -52,6 +52,7 @@ class Matrix(Tensor):
     pointer = LIB().matmul(a.pointer, b.pointer)
     return cls(pointer=pointer)
 
+  # matmul is preferred over dot
   @classmethod
   def dot(cls, a, b):
     return cls.matmul(a, b)

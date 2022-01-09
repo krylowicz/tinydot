@@ -32,6 +32,9 @@ class Tensor:
   def __str__(self):
     return f"<Tensor with shape {self.shape}>"
 
+  def __mul__(self, other):
+    return self.mul(self, other)
+
   def __del__(self):
     try:
       LIB().destory(self.pointer) 
@@ -80,6 +83,16 @@ class Tensor:
     if Tensor.match_shapes(t1, t2):
       pointer = LIB().add(t1.pointer, t2.pointer)
       return cls(pointer=pointer)
+    else:
+      raise ValueError("Tensors must have matching shapes")
+
+  @classmethod
+  def mul(cls, t, scalar):
+    if isinstance(scalar, (int, float)):
+      pointer = LIB().mul(t.pointer, scalar)
+      return cls(pointer=pointer)
+    else:
+      raise TypeError(f"Can't multiply tensor with type {type(scalar)}")
 
   @classmethod
   def zeros(cls, shape):

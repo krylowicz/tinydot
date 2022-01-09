@@ -45,6 +45,19 @@ struct Tensor *tensor_add(struct Tensor *t1, struct Tensor *t2) {
   return result;
 } 
 
+// TODO - mul
+struct Tensor *mul(struct Tensor *tensor, double scalar) {
+  struct Tensor *result = tensor_init(tensor->rank, tensor->shape);
+  double *data = malloc(tensor->length * sizeof(double));
+
+  for (unsigned int i = 0; i < tensor->length; i++)
+    data[i] = tensor->data[i] * scalar;
+
+  tensor_set(result, data);
+
+  return result;
+}
+
 struct Tensor *zeros(unsigned int rank, unsigned int *shape) {
   struct Tensor *tensor = tensor_init(rank, shape);
   tensor->data = calloc(tensor->length, sizeof(double));

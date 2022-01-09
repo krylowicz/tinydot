@@ -19,6 +19,7 @@ class LIB(metaclass=Singleton):
     self.copy    = self.c_wrapper('tensor_copy',        c_void_p, [c_void_p])
     self.set     = self.c_wrapper('tensor_set',         None,     [c_void_p, POINTER(c_double)])
     self.add     = self.c_wrapper('tensor_add',         c_void_p, [c_void_p, c_void_p])
+    self.mul     = self.c_wrapper('mul',                c_void_p, [c_void_p, c_double])
     self.zeros   = self.c_wrapper('zeros',              c_void_p, [c_uint, POINTER(c_int)])
     self.ones    = self.c_wrapper('ones',               c_void_p, [c_uint, POINTER(c_int)])
     self.rand    = self.c_wrapper('tensor_rand',        c_void_p, [c_uint, POINTER(c_int), c_uint])
