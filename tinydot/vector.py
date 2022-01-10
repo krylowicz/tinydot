@@ -25,6 +25,10 @@ class Vector(Matrix):
     else:
       raise TypeError(f"Can't multiply Vector with type {type(other)}")
 
+  @property
+  def norm(self):
+    return LIB().v_norm(self.pointer)
+
   @classmethod
   def dot(cls, v1, v2):
     if Tensor.match_shapes(v1, v2):
