@@ -25,9 +25,13 @@ class Vector(Matrix):
     else:
       raise TypeError(f"Can't multiply Vector with type {type(other)}")
 
+  # overrides matrix norm method
   @property
   def norm(self):
     return LIB().v_norm(self.pointer)
+
+  def rotate(self, angle):
+    LIB().v_rotate(self.pointer, angle)
 
   @classmethod
   def dot(cls, v1, v2):

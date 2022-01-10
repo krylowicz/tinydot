@@ -36,6 +36,8 @@ class LIB(metaclass=Singleton):
     self.v_dot   = self.c_wrapper('vector_dot',         c_double,  [c_void_p, c_void_p])
     self.v_sub   = self.c_wrapper('vector_sub',         c_void_p,  [c_void_p, c_void_p])
     self.v_norm  = self.c_wrapper('vector_norm',        c_double,  [c_void_p])
+    self.v_angle = self.c_wrapper('vector_angle',       c_double,  [c_void_p, c_void_p, c_double])
+    self.v_rotate= self.c_wrapper('vector_rotate',      c_void_p,  [c_void_p, c_double])
 
   def c_wrapper(self, funcname, restype, argtypes):
     func = self.lib.__getattr__(funcname)

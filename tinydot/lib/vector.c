@@ -32,3 +32,11 @@ struct Tensor *vector_sub(struct Tensor *t1, struct Tensor *t2) {
 
   return result;
 }
+
+void vector_rotate(struct Tensor *vector, double theta) {
+  double x = vector->data[0];
+  double y = vector->data[1];
+  theta = theta * (M_PI / 180);
+  vector->data[0] = x * cos(theta) + y * sin(theta);
+  vector->data[1] = y * cos(theta) - x * sin(theta);
+}

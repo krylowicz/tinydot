@@ -64,8 +64,8 @@ class TestVector(unittest.TestCase):
   def test_rotate(self):
     v1 = Vector(3, 4)
     v1.rotate(30)
-    self.assertEqual(v1.data, (4.598076211353316, 1.964101615137755))
+    self.assertEqual(v1.data, [4.598076211353316, 1.964101615137755])
 
     v2 = Vector(3.7, -8.259)
     v2.rotate(-47)
-    self.assertEqual(v2.data, (8.56364415390397347, -2.926615759765244))
+    self.assertEqual(v2.data, [8.56364415390397347, -2.926615759765244])
