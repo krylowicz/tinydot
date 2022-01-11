@@ -48,3 +48,11 @@ class Vector(Matrix):
     else:
       raise ValueError("Vectors must have matching lengths")
  
+  @classmethod
+  def angle(cls, v1, v2, degrees=False):
+    if Tensor.match_shapes(v1, v2):
+      if degrees:
+        return LIB().v_angle(v1.pointer, v2.pointer, 1)
+      return LIB().v_angle(v1.pointer, v2.pointer, 0)
+    else:
+      raise ValueError("Vectors must have matching lengths")
