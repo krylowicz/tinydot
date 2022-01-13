@@ -38,6 +38,5 @@ def random(*args):
   pointer = _LIB().random(rank, (rank * _ct.c_uint)(*args))
   return _get_cls(shape=args)(pointer=pointer)
  
-# def prod(tensor):
-#   pointer = _LIB().prod(tensor.pointer)
-#   return _get_cls(object=tensor)(pointer=pointer)
+def prod(tensor):
+  return _LIB().prod(tensor.pointer)

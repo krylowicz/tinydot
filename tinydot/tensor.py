@@ -138,18 +138,7 @@ class Tensor:
   #     c_data = rank * c_uint
   #     pointer = LIB().uniform(len(shape), (c_data)(*shape), low, high)
   #   return Tensor(pointer=pointer)
-      
-  @classmethod
-  def prod(cls, tensor, axis=None):
-    # if axis:
-    #   if axis > len(tensor.shape) or axis < 0:
-    #     raise ValueError("axis out of bounds")
-
-    #   pointer = LIB().prod(tensor.pointer, (c_size_t)(axis))
-    #   print(pointer)
-    #   return cls(pointer=pointer)
-    return LIB().prod(tensor.pointer)
-
+  
   @staticmethod
   def match_shapes(t1, t2):
     if t1.rank != t2.rank:

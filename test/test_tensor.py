@@ -1,4 +1,5 @@
 import unittest
+import tinydot as td
 from tinydot.tensor import Tensor
 
 class TestTensor(unittest.TestCase):
@@ -73,7 +74,7 @@ class TestTensor(unittest.TestCase):
       [2, 1]
     ])
 
-    prod = Tensor.prod(tensor)
+    prod = td.prod(tensor)
     self.assertEqual(prod, 24.0)
 
   def test_add(self):

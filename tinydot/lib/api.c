@@ -23,3 +23,13 @@ struct Tensor *api_random(unsigned int rank, unsigned int *shape) {
 
   return tensor;
 }
+
+float prod(const struct Tensor *tensor) {
+  float res = 1.0f;
+
+  for (unsigned int i = 0; i < tensor->length; ++i) {
+    res *= tensor->data[i];
+  }
+
+  return res;
+}
