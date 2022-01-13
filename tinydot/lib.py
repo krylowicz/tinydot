@@ -11,7 +11,12 @@ class Singleton(type):
 
 class LIB(metaclass=Singleton):
   def __init__(self):
-    self.lib = CDLL(Path().resolve() / 'build/c_lib.so')
+    # TODO - find better way to do this
+    self.lib = CDLL(Path().resolve() / '../build/c_lib.so')
+
+    #api methods
+    self.sqrt    = self.c_wrapper('api_sqrt',           c_void_p, [c_void_p])
+    self.random  = self.c_wrapper('api_random',         c_void_p, [c_uint, POINTER(c_uint)])
 
     #tensor / generic methods
     self.init    = self.c_wrapper('tensor_init',        c_void_p, [c_uint, POINTER(c_int)])
@@ -22,12 +27,13 @@ class LIB(metaclass=Singleton):
     self.mul     = self.c_wrapper('mul',                c_void_p, [c_void_p, c_double])
     self.zeros   = self.c_wrapper('zeros',              c_void_p, [c_uint, POINTER(c_int)])
     self.ones    = self.c_wrapper('ones',               c_void_p, [c_uint, POINTER(c_int)])
-    self.rand    = self.c_wrapper('tensor_rand',        c_void_p, [c_uint, POINTER(c_int), c_uint])
+    self.uniform = self.c_wrapper('uniform',            c_void_p, [c_uint, POINTER(c_uint), c_double, c_double, POINTER(c_uint)])
+    self.prod    = self.c_wrapper('prod',               c_float,  [c_void_p])
 
     #matrix methods
     self.norm    = self.c_wrapper('matrix_norm',        c_double,  [c_void_p])
     self.trace   = self.c_wrapper('matrix_trace',       c_double,  [c_void_p])
-    self.T       = self.c_wrapper('matrix_transpose',   None,      [c_void_p])
+    self.T       = self.c_wrapper('matrix_transpose',   POINTER(c_uint),      [c_void_p])
     self.det     = self.c_wrapper('matrix_determinant', c_double,  [c_void_p])
     self.identity= self.c_wrapper('matrix_identity',    c_void_p,  [c_uint, POINTER(c_int)])
     self.matmul  = self.c_wrapper('matmul',             c_void_p,  [c_void_p, c_void_p])

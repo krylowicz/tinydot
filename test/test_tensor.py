@@ -62,13 +62,19 @@ class TestTensor(unittest.TestCase):
       [1, 1]
     ])
 
-  def test_rand_seed(self):
-    tensor = Tensor.rand([3, 2], seed=42)
-    self.assertEqual(tensor.data, [
-      [0.00032870750889587566, 0.5245871020129822],
-      [0.7354235321913956, 0.26330554078487006],
-      [0.37622397131110724, 0.19628582577979464]
+  # def test_uniform(self):
+  #   tensor = Tensor.uniform(64, 32, shape=(2, 2))
+  #   self.assertEqual(tensor.data, [[0.0, 0.0], [0.0, 0.0]])
+
+  def test_prod(self):
+    tensor = Tensor([2, 2])
+    tensor.set([
+      [4, 3],
+      [2, 1]
     ])
+
+    prod = Tensor.prod(tensor)
+    self.assertEqual(prod, 24.0)
 
   def test_add(self):
     t1 = Tensor([2, 2])

@@ -74,14 +74,46 @@ struct Tensor *ones(unsigned int rank, unsigned int *shape) {
   return tensor;
 }
 
-struct Tensor *tensor_rand(unsigned int rank, unsigned int *shape, unsigned int seed) {
+struct Tensor *uniform(unsigned int rank, unsigned int *shape, double low, double high) {
   struct Tensor *tensor = tensor_init(rank, shape);
-  
-  srand(seed);
+
   for (unsigned int i = 0; i < tensor->length; i++) {
-    tensor->data[i] = (double)rand() / RAND_MAX;
+    tensor->data[i] = low + (high - low) * (double)rand() / RAND_MAX;
   }
 
   return tensor;
 }
 
+float prod(const struct Tensor *tensor) {
+  float res = 1.0f;
+
+  for (unsigned int i = 0; i < tensor->length; ++i) {
+    res *= tensor->data[i];
+  }
+
+  return res;
+}
+
+// struct Tensor *prod(struct Tensor *tensor, const size_t *axis) {
+//   struct Tensor *result = tensor_init(tensor->rank - 1, tensor->shape);
+//   double *data = malloc(result->length * sizeof(double));
+  
+//   for (unsigned int i = 0; i < result->length; i++) {
+//     unsigned int index = 0;
+//     unsigned int j = 0;
+//     for (unsigned int k = 0; k < tensor->rank; k++) {
+//       if (k != *axis) {
+//         result->shape[j] = tensor->shape[k];
+//         index += i * tensor->shape[k];
+//         j++;
+//       }
+//     }
+//     data[i] = tensor->data[index];
+//   }
+
+//   for (unsigned int i = 0; i < result->length; i++)
+//     printf("%f\n", data[i]);
+
+//   tensor_set(result, data);
+//   return result;
+// }

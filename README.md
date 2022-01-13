@@ -16,17 +16,16 @@ Maybe I will add some tensor algebra in the future.
 I am planning to upload tinydot to pip but meanwhile if you would like to play around with this framework, here's an example:
 
 ```python
-from tinydot.vector import Vector
-from tinydot.matrix import Matrix
+import tinydot as td
  
-v1 = Vector(1, 3)
-v2 = Vector(2, 4)
+v1 = td.Vector(1, 3)
+v2 = td.Vector(2, 4)
 
-dot_product = Vector.dot(v1, v2)
+dot_product = td.Vector.dot(v1, v2)
 v1_norm = v1.norm
 v2.rotate(47) #inplace counterclockwise vector rotation by theta degrees (use -theta for clockwise)
 
-matrix = Matrix([[1, 2], [3, 4], [5, 6]])
+matrix = td.Matrix([[1, 2], [3, 4], [5, 6]])
 matrix.T #transposes the matrix inplace
 trace = matrix.trace
 matrix_norm = matrix.norm

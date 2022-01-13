@@ -1,6 +1,8 @@
 from ctypes import *
 from tinydot.lib import LIB
-from tinydot.utils import flatten, get_index, reshape
+from tinydot._utils import _flatten, _get_index, _reshape
+
+# TODO - print tensor with correct shape
 
 class TensorData(Structure):
   _fields_ = [
@@ -50,7 +52,7 @@ class Tensor:
     
   @property
   def data(self):
-    return reshape([self.get().data[i] for i in range(self.length)], self.shape)
+    return _reshape([self.get().data[i] for i in range(self.length)], self.shape)
 
   def from_pointer(self, pointer):
     self.pointer = pointer
@@ -64,17 +66,19 @@ class Tensor:
     self.pointer = LIB().init(self.rank, (c_int * self.rank)(*shape))
 
   def set(self, data):
-    data = flatten(data)
+    data = _flatten(data)
     c_data = c_double * len(data)
     LIB().set(c_void_p(self.pointer), (c_data)(*data))
 
   def get(self, coord=None):
     if coord:
-      index = get_index(coord, self.shape)
+      index = _get_index(coord, self.shape)
       return TensorData.from_address(self.pointer).data[index]
     return TensorData.from_address(self.pointer)
 
-  def reshape(self, shape):
+  def reshape(self, *shape):
+    if -1 in shape and shape.count(-1) > 1:
+      raise ValueError("Can only specify one unknown dimension")
     self.shape = shape
 
   def copy(self):
@@ -107,7 +111,7 @@ class Tensor:
     pointer = LIB().zeros(rank, (c_data)(*shape))
     return cls(pointer=pointer)
 
-  # # TODO - Tensor dot product
+  # TODO - Tensor dot product
   # @classmethod
   # def dot(cls, t1, t2):
   #   if Tensor.match_shapes(t1, t2):
@@ -126,14 +130,26 @@ class Tensor:
     pointer = LIB().ones(rank, (c_data)(*shape))
     return cls(pointer=pointer)
 
+  # @classmethod
+  # def uniform(cls, low=0.0, high=1.0, shape=None):
+  #   pointer = None
+  #   if shape:
+  #     rank = len(shape)
+  #     c_data = rank * c_uint
+  #     pointer = LIB().uniform(len(shape), (c_data)(*shape), low, high)
+  #   return Tensor(pointer=pointer)
+      
   @classmethod
-  def rand(cls, shape, seed=None):
-    if seed:
-      rank = len(shape)
-      c_data = rank * c_int
-      pointer = LIB().rand(rank, (c_data)(*shape), seed)
-      return Tensor(pointer=pointer)
-    
+  def prod(cls, tensor, axis=None):
+    # if axis:
+    #   if axis > len(tensor.shape) or axis < 0:
+    #     raise ValueError("axis out of bounds")
+
+    #   pointer = LIB().prod(tensor.pointer, (c_size_t)(axis))
+    #   print(pointer)
+    #   return cls(pointer=pointer)
+    return LIB().prod(tensor.pointer)
+
   @staticmethod
   def match_shapes(t1, t2):
     if t1.rank != t2.rank:

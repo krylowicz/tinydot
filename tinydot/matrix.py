@@ -39,8 +39,9 @@ class Matrix(Tensor):
   def transpose(self):
     # TODO - return shape from C
     # shape comes from parent class
-    self.shape = self.shape[::-1]
-    return LIB().T(self.pointer)
+    new_shape = LIB().T(self.pointer)
+    self.shape = [new_shape[i] for i in range(len(self.shape))]
+    return self
 
   @classmethod
   def identity(cls, shape):
@@ -51,6 +52,8 @@ class Matrix(Tensor):
 
   @classmethod
   def matmul(cls, a, b):
+    if a.shape[0] != b.shape[1]:
+      raise ValueError("The number of columns in the first matrix must be equal to the number of rows in the second matrix")
     pointer = LIB().matmul(a.pointer, b.pointer)
     return cls(pointer=pointer)
 
