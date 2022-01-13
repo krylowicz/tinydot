@@ -22,16 +22,17 @@ def sqrt(tensor):
   except TypeError:
     return f"Can't take element-wise square root of type {type(tensor)}"
 
-# def uniform(low=0.0, high=1.0, shape=None):
-#   pointer = None
-#   if shape:
-#     rank = len(shape)
-#     c_data = rank * _ct.c_uint
-#     pointer = _LIB().uniform(rank, (c_data)(*shape), low, high)
-#   else:
-#     pointer = _LIB().uniform(0, 0, low, high)
+def uniform(low=0.0, high=1.0, shape=None):
+  pointer = None
+  if shape:
+    rank = len(shape)
+    c_data = rank * _ct.c_uint
+    pointer = _LIB().uniform(rank, (c_data)(*shape), low, high)
+  else:
+    # TODO - change to scalar (now it's a vector)
+    pointer = _LIB().uniform(1, (1 * _ct.c_uint)(1), low, high)
   
-#   return _get_cls(shape=shape)(pointer=pointer)
+  return _get_cls(shape=shape)(pointer=pointer)
   
 def random(*args):
   rank = 1 if isinstance(args, int) else len(args)

@@ -24,7 +24,17 @@ struct Tensor *api_random(unsigned int rank, unsigned int *shape) {
   return tensor;
 }
 
-float prod(const struct Tensor *tensor) {
+struct Tensor *api_uniform(unsigned int rank, unsigned int *shape, double low, double high) {
+  struct Tensor *tensor = tensor_init(rank, shape);
+
+  for (unsigned int i = 0; i < tensor->length; i++) {
+    tensor->data[i] = low + (high - low) * (double)rand() / RAND_MAX;
+  }
+
+  return tensor;
+}
+
+float api_prod(const struct Tensor *tensor) {
   float res = 1.0f;
 
   for (unsigned int i = 0; i < tensor->length; ++i) {

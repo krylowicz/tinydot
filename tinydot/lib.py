@@ -17,6 +17,8 @@ class LIB(metaclass=Singleton):
     #api methods
     self.sqrt    = self.c_wrapper('api_sqrt',           c_void_p, [c_void_p])
     self.random  = self.c_wrapper('api_random',         c_void_p, [c_uint, POINTER(c_uint)])
+    self.prod    = self.c_wrapper('api_prod',           c_float,  [c_void_p])
+    self.uniform = self.c_wrapper('api_uniform',        c_void_p, [c_uint, POINTER(c_uint), c_double, c_double])
 
     #tensor / generic methods
     self.init    = self.c_wrapper('tensor_init',        c_void_p, [c_uint, POINTER(c_int)])
@@ -27,8 +29,6 @@ class LIB(metaclass=Singleton):
     self.mul     = self.c_wrapper('mul',                c_void_p, [c_void_p, c_double])
     self.zeros   = self.c_wrapper('zeros',              c_void_p, [c_uint, POINTER(c_int)])
     self.ones    = self.c_wrapper('ones',               c_void_p, [c_uint, POINTER(c_int)])
-    self.uniform = self.c_wrapper('uniform',            c_void_p, [c_uint, POINTER(c_uint), c_double, c_double, POINTER(c_uint)])
-    self.prod    = self.c_wrapper('prod',               c_float,  [c_void_p])
 
     #matrix methods
     self.norm    = self.c_wrapper('matrix_norm',        c_double,  [c_void_p])
