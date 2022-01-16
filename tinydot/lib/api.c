@@ -43,3 +43,19 @@ float api_prod(const struct Tensor *tensor) {
 
   return res;
 }
+
+struct Tensor *zeros(unsigned int rank, unsigned int *shape) {
+  struct Tensor *tensor = tensor_init(rank, shape);
+  tensor->data = calloc(tensor->length, sizeof(double));
+
+  return tensor;
+}
+
+struct Tensor *ones(unsigned int rank, unsigned int *shape) {
+  struct Tensor *tensor = tensor_init(rank, shape);
+
+  for (unsigned int i = 0; i < tensor->length; i++)
+    tensor->data[i] = 1.0;
+  
+  return tensor;
+}

@@ -101,16 +101,6 @@ class Tensor:
     else:
       raise TypeError(f"Can't multiply tensor with type {type(scalar)}")
 
-  @classmethod
-  def zeros(cls, shape):
-    if isinstance(shape, int):
-      shape = [shape]
-
-    rank = len(shape)
-    c_data = c_int * rank
-    pointer = LIB().zeros(rank, (c_data)(*shape))
-    return cls(pointer=pointer)
-
   # TODO - Tensor dot product
   # @classmethod
   # def dot(cls, t1, t2):
@@ -121,24 +111,46 @@ class Tensor:
   #     raise ValueError("Tensors must have matching shapes")
 
   @classmethod
-  def ones(cls, shape):
-    if isinstance(shape, int):
-      shape = [shape]
-      
-    rank = len(shape)
-    c_data = c_int * rank
+  def ones(cls, *shape):
+    rank = 1 if isinstance(shape, int) else len(shape)
+    c_data = c_uint * rank
     pointer = LIB().ones(rank, (c_data)(*shape))
     return cls(pointer=pointer)
 
-  # @classmethod
-  # def uniform(cls, low=0.0, high=1.0, shape=None):
-  #   pointer = None
-  #   if shape:
-  #     rank = len(shape)
-  #     c_data = rank * c_uint
-  #     pointer = LIB().uniform(len(shape), (c_data)(*shape), low, high)
-  #   return Tensor(pointer=pointer)
+  @classmethod
+  def zeros(cls, *shape):
+    rank = 1 if isinstance(shape, int) else len(shape)
+    c_data = c_uint * rank
+    pointer = LIB().zeros(rank, (c_data)(*shape))
+    return cls(pointer=pointer)
+
+  @classmethod
+  def random(cls, *shape):
+    rank = 1 if isinstance(shape, int) else len(shape)
+    c_data = c_int * rank
+    pointer = LIB().random(rank, (c_data)(*shape))
+    return cls(pointer=pointer)
+
+  @classmethod
+  def uniform(cls, low=0.0, high=1.0, shape=None):
+    pointer = None
+    if shape:
+      rank = len(shape)
+      c_data = rank * c_uint
+      pointer = LIB().uniform(rank, (c_data)(*shape), low, high)
+    else:
+      # TODO - change to scalar (now it's a vector)
+      pointer = LIB().uniform(1, (1 * c_uint)(1), low, high)
+    return cls(pointer=pointer)
   
+  @classmethod
+  def prod(cls, t):
+    return LIB().prod(t.pointer)
+
+  @classmethod
+  def sqrt(cls, t):
+    return LIB().sqrt(t.pointer)
+
   @staticmethod
   def match_shapes(t1, t2):
     if t1.rank != t2.rank:

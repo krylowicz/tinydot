@@ -14,6 +14,7 @@ def _get_cls(object=None, shape=None):
     return Matrix
   elif isinstance(object, Vector) or len(shape) == 1:
     return Vector
+  # TODO - add scalar type
   else:
     raise TypeError(f"Can't get class of type {type(object)}")
 
@@ -36,12 +37,32 @@ def uniform(low=0.0, high=1.0, shape=None):
   
   return _get_cls(shape=shape)(pointer=pointer)
   
-def random(*args):
-  rank = 1 if isinstance(args, int) else len(args)
-  pointer = _LIB().random(rank, (rank * _ct.c_uint)(*args))
-  return _get_cls(shape=args)(pointer=pointer)
+def random(*shape):
+  rank = 1 if isinstance(shape, int) else len(shape)
+  pointer = _LIB().random(rank, (rank * _ct.c_uint)(*shape))
+  return _get_cls(shape=shape)(pointer=pointer)
  
 def prod(tensor):
   return _LIB().prod(tensor.pointer)
 
+# TODO - fix tests
+def zeros(*shape):
+  rank = 1 if isinstance(shape, int) else len(shape)
+  c_data = rank * _ct.c_uint
+  pointer = _LIB().zeros(rank, (c_data)(*shape))
+  return _get_cls(shape=shape)(pointer=pointer)
+
+def ones(*shape):
+  rank = 1 if isinstance(shape, int) else len(shape)
+  c_data = rank * _ct.c_uint
+  pointer = _LIB().ones(rank, (c_data)(*shape))
+  return _get_cls(shape=shape)(pointer=pointer)
+
 # TODO - zeros, ones, dot, add, mul, copy
+
+# def _is_on_axis(flat_tensor, i, axis):
+#   if axis < 0:
+#     axis += flat_tensor.rank
+#   elif axis >= flat_tensor.rank:
+#     raise IndexError(f"Axis {axis} is out of bounds")
+#   return i % flat_tensor.shape[axis] != 0
