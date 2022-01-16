@@ -5,6 +5,8 @@ from .tensor import Tensor
 from .matrix import Matrix
 from .vector import Vector
 
+# TODO - TESTS FOR API
+
 # This file contains tinydot API for initialization and generic math methods for tinydot's data structures.
 
 def _get_cls(object=None, shape=None):
@@ -17,6 +19,18 @@ def _get_cls(object=None, shape=None):
   # TODO - add scalar type
   else:
     raise TypeError(f"Can't get class of type {type(object)}")
+
+def copy(tensor):
+  pointer = _LIB().copy(tensor.pointer)
+  return _get_cls(object=tensor)(pointer=pointer)
+
+# TODO - make it work for all cases
+def add(t1, t2):
+  if Tensor.match_shapes(t1, t2):
+    pointer = _LIB().add(t1.pointer, t2.pointer)
+    return _get_cls(object=t1)(pointer=pointer)
+  else:
+    raise ValueError("Tensors must have matching shapes")
 
 def sqrt(tensor):
   pointer = _LIB().sqrt(tensor.pointer)
@@ -45,7 +59,6 @@ def random(*shape):
 def prod(tensor):
   return _LIB().prod(tensor.pointer)
 
-# TODO - fix tests
 def zeros(*shape):
   rank = 1 if isinstance(shape, int) else len(shape)
   c_data = rank * _ct.c_uint
@@ -57,12 +70,3 @@ def ones(*shape):
   c_data = rank * _ct.c_uint
   pointer = _LIB().ones(rank, (c_data)(*shape))
   return _get_cls(shape=shape)(pointer=pointer)
-
-# TODO - zeros, ones, dot, add, mul, copy
-
-# def _is_on_axis(flat_tensor, i, axis):
-#   if axis < 0:
-#     axis += flat_tensor.rank
-#   elif axis >= flat_tensor.rank:
-#     raise IndexError(f"Axis {axis} is out of bounds")
-#   return i % flat_tensor.shape[axis] != 0

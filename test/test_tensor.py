@@ -30,7 +30,7 @@ class TestTensor(unittest.TestCase):
     self.assertEqual(tensor.data, [[1., 2., 3., 4., 5., 6.]])
 
   def test_copy(self):
-    t1 = Tensor.ones(3, 5, 2)
+    t1 = td.ones(3, 5, 2)
     t2 = t1.copy()
     self.assertEqual(t1.data, t2.data)
 
@@ -48,7 +48,7 @@ class TestTensor(unittest.TestCase):
     self.assertEqual(t2.get([2, 0, 0]), 5.0)
 
   def test_zeros(self):
-    tensor = Tensor.zeros(3, 2, 1)  
+    tensor = td.zeros(3, 2, 1)  
     self.assertEqual(tensor.data, [
       [[0], [0]],
       [[0], [0]],
@@ -56,7 +56,7 @@ class TestTensor(unittest.TestCase):
     ])
 
   def test_ones(self):
-    tensor = Tensor.ones(3, 2)
+    tensor = td.ones(3, 2)
     self.assertEqual(tensor.data, [
       [1, 1],
       [1, 1],

@@ -12,9 +12,6 @@ class TensorData(Structure):
     ('data', POINTER(c_double))
   ]
 
-  #def __str__(self):
-  #  return f"{[self.data[i] for i in range(self.length)]}"
-
 class Tensor:
   def __init__(self, shape=None, pointer=None):
     if pointer:
@@ -110,6 +107,13 @@ class Tensor:
   #   else:
   #     raise ValueError("Tensors must have matching shapes")
 
+  # def _is_on_axis(flat_tensor, i, axis):
+  #   if axis < 0:
+  #     axis += flat_tensor.rank
+  #   elif axis >= flat_tensor.rank:
+  #     raise IndexError(f"Axis {axis} is out of bounds")
+  #   return i % flat_tensor.shape[axis] != 0
+
   @classmethod
   def ones(cls, *shape):
     rank = 1 if isinstance(shape, int) else len(shape)
@@ -124,6 +128,7 @@ class Tensor:
     pointer = LIB().zeros(rank, (c_data)(*shape))
     return cls(pointer=pointer)
 
+  # TODO - add random with seed
   @classmethod
   def random(cls, *shape):
     rank = 1 if isinstance(shape, int) else len(shape)

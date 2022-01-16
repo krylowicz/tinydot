@@ -37,8 +37,6 @@ class Matrix(Tensor):
     return self.transpose()
 
   def transpose(self):
-    # TODO - return shape from C
-    # shape comes from parent class
     new_shape = LIB().T(self.pointer)
     self.shape = [new_shape[i] for i in range(len(self.shape))]
     return self
@@ -50,6 +48,8 @@ class Matrix(Tensor):
     pointer = LIB().identity(rank, (c_data)(*shape))
     return cls(pointer=pointer)
 
+  # TODO - matrix inverse
+
   @classmethod
   def matmul(cls, a, b):
     if a.shape[0] != b.shape[1]:
@@ -57,7 +57,6 @@ class Matrix(Tensor):
     pointer = LIB().matmul(a.pointer, b.pointer)
     return cls(pointer=pointer)
 
-  # matmul is preferred over dot
   # overrides Tensor dot method
   @classmethod
   def dot(cls, a, b):
