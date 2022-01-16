@@ -8,9 +8,9 @@ Tinydot is a Python wrapper for my tiny linear algebra library writen in C. The 
 
 ## How?
 
-Everything in tinydot is based on nd Tensor structure, i. e. a matrix is just a 2d tensor with shape [rows, cols].
+Everything in tinydot is based on nd Tensor structure, i.e. a matrix is a 2d tensor with shape [rows, cols].
 
-Maybe I will add some tensor algebra in the future.
+tinydot also support basic operations on Tensors.
 
 ## Installation
 I am planning to upload tinydot to pip but meanwhile if you would like to play around with this framework, here's an example:

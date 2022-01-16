@@ -59,3 +59,43 @@ struct Tensor *ones(unsigned int rank, unsigned int *shape) {
   
   return tensor;
 }
+
+struct Tensor *maximum(const struct Tensor *t1, const struct Tensor *t2) {
+  struct Tensor *result = tensor_init(t1->rank, t1->shape);
+  double *data = malloc(t1->length * sizeof(double));
+
+  for (unsigned int i = 0; i < t1->length; i++)
+    data[i] = t1->data[i] > t2->data[i] ? t1->data[i] : t2->data[i];
+
+  tensor_set(result, data);
+
+  return result;
+}
+
+struct Tensor *maximum_scalar(const struct Tensor *tensor, const int max) {
+  struct Tensor *result = tensor_init(tensor->rank, tensor->shape);
+  double *data = malloc(tensor->length * sizeof(double));
+
+  for (unsigned int i = 0; i < tensor->length; i++)
+    data[i] = tensor->data[i] > max ? tensor->data[i] : max;
+
+  tensor_set(result, data);
+
+  return result;
+}
+
+struct Tensor *exponent(const struct Tensor *tensor) {
+  struct Tensor *result = tensor_init(tensor->rank, tensor->shape);
+  double *data = malloc(tensor->length * sizeof(double));
+
+  for (unsigned int i = 0; i < tensor->length; i++)
+    data[i] = exp(tensor->data[i]);
+
+  tensor_set(result, data);
+
+  return result;
+}
+
+void sum(const struct Tensor *tensor, const unsigned int axis) {
+  // TODO - sum over axis
+}

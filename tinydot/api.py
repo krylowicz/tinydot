@@ -16,7 +16,6 @@ def _get_cls(object=None, shape=None):
     return Matrix
   elif isinstance(object, Vector) or len(shape) == 1:
     return Vector
-  # TODO - add scalar type
   else:
     raise TypeError(f"Can't get class of type {type(object)}")
 
@@ -32,12 +31,30 @@ def add(t1, t2):
   else:
     raise ValueError("Tensors must have matching shapes")
 
+def sum(tensor, axis=None):
+  if axis is None:
+    return _LIB().sum(tensor.pointer, None)
+  else:
+    return _LIB().sum(tensor.pointer, axis)
+
+def exp(tensor):
+  pointer = _LIB().exp(tensor.pointer)
+  return _get_cls(object=tensor)(pointer=pointer)
+
 def sqrt(tensor):
   pointer = _LIB().sqrt(tensor.pointer)
   try:
     return _get_cls(object=tensor)(pointer=pointer)
   except TypeError:
     return f"Can't take element-wise square root of type {type(tensor)}"
+
+def maximum(tensor, max):
+  pointer = None
+  if isinstance(max, (int, float)):
+    pointer = _LIB().maximum_scalar(tensor.pointer, max)
+  elif Tensor.match_shapes(tensor, max):
+    pointer = _LIB().maximum(tensor.pointer, max)
+  return _get_cls(object=tensor)(pointer=pointer)
 
 def uniform(low=0.0, high=1.0, shape=None):
   pointer = None

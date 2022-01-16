@@ -20,8 +20,11 @@ class LIB(metaclass=Singleton):
     self.prod    = self.c_wrapper('api_prod',           c_float,  [c_void_p])
     self.uniform = self.c_wrapper('api_uniform',        c_void_p, [c_uint, POINTER(c_uint), c_double, c_double])
     # api_zeros and api_ones names give an error while linking?
-    self.zeros   = self.c_wrapper('zeros',          c_void_p, [c_uint, POINTER(c_uint)])
-    self.ones    = self.c_wrapper('ones',           c_void_p, [c_uint, POINTER(c_uint)])
+    self.zeros   = self.c_wrapper('zeros',              c_void_p, [c_uint, POINTER(c_uint)])
+    self.ones    = self.c_wrapper('ones',               c_void_p, [c_uint, POINTER(c_uint)])
+    # self.maximum = self.c_wrapper('maximum',            c_void_p, [c_void_p, c_void_p])
+    self.maximum_scalar = self.c_wrapper('maximum_scalar',            c_void_p, [c_void_p, c_int])
+    self.exp     = self.c_wrapper('exponent',           c_void_p, [c_void_p])
 
     #tensor / generic methods
     self.init    = self.c_wrapper('tensor_init',        c_void_p, [c_uint, POINTER(c_int)])

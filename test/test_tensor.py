@@ -102,3 +102,13 @@ class TestTensor(unittest.TestCase):
 
     tensor = Tensor.mul(t1, 2.0)
     self.assertEqual(tensor.data, [[8.0, 6.0], [4.0, 2.0]])
+
+  def test_maximum(self):
+    t1 = Tensor([2, 2])
+    t1.set([
+      [4, -3],
+      [-2, 1]
+    ])
+
+    tensor = td.maximum(t1, 0)
+    self.assertEqual(tensor.data, [[4.0, 0.0], [0.0, 1.0]])
