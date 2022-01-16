@@ -1,4 +1,5 @@
 import unittest
+import tinydot as td
 from tinydot.matrix import Matrix
 
 class TestMatrix(unittest.TestCase):
@@ -126,3 +127,11 @@ class TestMatrix(unittest.TestCase):
 
     matrix = A * 2
     self.assertEqual(matrix.data, [[2.0, 4.0, 6.0], [6.0, 8.0, 4.0], [6.0, 4.0, 2.0]])
+
+  def test_random(self): 
+    tensor = td.random(3, 2)
+    self.assertEqual(tensor.data, [
+      [0.00032870750889587566, 0.5245871020129822],
+      [0.7354235321913956, 0.26330554078487006],
+      [0.37622397131110724, 0.19628582577979464]
+    ])

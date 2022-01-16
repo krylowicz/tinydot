@@ -4,13 +4,16 @@ from tinydot.tensor import Tensor
 from tinydot.matrix import Matrix
 
 class Vector(Matrix):
-  def __init__(self, *data, pointer=None, **kwargs):
+  def __init__(self, *data, pointer=None):
     if pointer:
       Tensor.__init__(self, pointer=pointer)
     else:
       Tensor.__init__(self, [len(data)])
       self.set(data)
 
+  def __str__(self):
+    return f"<Vector with shape {self.shape}>"
+    
   def __sub__(self, other):
     if isinstance(other, Vector):
       return self.sub(self, other)
@@ -47,7 +50,7 @@ class Vector(Matrix):
       return cls(pointer=pointer)
     else:
       raise ValueError("Vectors must have matching lengths")
- 
+
   @classmethod
   def angle(cls, v1, v2, degrees=False):
     if Tensor.match_shapes(v1, v2):

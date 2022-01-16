@@ -1,4 +1,5 @@
 import unittest
+import tinydot as td
 from tinydot.tensor import Tensor
 
 class TestTensor(unittest.TestCase):
@@ -29,7 +30,7 @@ class TestTensor(unittest.TestCase):
     self.assertEqual(tensor.data, [[1., 2., 3., 4., 5., 6.]])
 
   def test_copy(self):
-    t1 = Tensor.ones([3, 5, 2])
+    t1 = td.ones(3, 5, 2)
     t2 = t1.copy()
     self.assertEqual(t1.data, t2.data)
 
@@ -47,7 +48,7 @@ class TestTensor(unittest.TestCase):
     self.assertEqual(t2.get([2, 0, 0]), 5.0)
 
   def test_zeros(self):
-    tensor = Tensor.zeros([3, 2, 1])  
+    tensor = td.zeros(3, 2, 1)  
     self.assertEqual(tensor.data, [
       [[0], [0]],
       [[0], [0]],
@@ -55,20 +56,26 @@ class TestTensor(unittest.TestCase):
     ])
 
   def test_ones(self):
-    tensor = Tensor.ones([3, 2])
+    tensor = td.ones(3, 2)
     self.assertEqual(tensor.data, [
       [1, 1],
       [1, 1],
       [1, 1]
     ])
 
-  def test_rand_seed(self):
-    tensor = Tensor.rand([3, 2], seed=42)
-    self.assertEqual(tensor.data, [
-      [0.00032870750889587566, 0.5245871020129822],
-      [0.7354235321913956, 0.26330554078487006],
-      [0.37622397131110724, 0.19628582577979464]
+  # def test_uniform(self):
+  #   tensor = Tensor.uniform(64, 32, shape=(2, 2))
+  #   self.assertEqual(tensor.data, [[0.0, 0.0], [0.0, 0.0]])
+
+  def test_prod(self):
+    tensor = Tensor([2, 2])
+    tensor.set([
+      [4, 3],
+      [2, 1]
     ])
+
+    prod = td.prod(tensor)
+    self.assertEqual(prod, 24.0)
 
   def test_add(self):
     t1 = Tensor([2, 2])
@@ -95,3 +102,13 @@ class TestTensor(unittest.TestCase):
 
     tensor = Tensor.mul(t1, 2.0)
     self.assertEqual(tensor.data, [[8.0, 6.0], [4.0, 2.0]])
+
+  def test_maximum(self):
+    t1 = Tensor([2, 2])
+    t1.set([
+      [4, -3],
+      [-2, 1]
+    ])
+
+    tensor = td.maximum(t1, 0)
+    self.assertEqual(tensor.data, [[4.0, 0.0], [0.0, 1.0]])

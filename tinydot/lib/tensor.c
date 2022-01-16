@@ -57,31 +57,3 @@ struct Tensor *mul(struct Tensor *tensor, double scalar) {
 
   return result;
 }
-
-struct Tensor *zeros(unsigned int rank, unsigned int *shape) {
-  struct Tensor *tensor = tensor_init(rank, shape);
-  tensor->data = calloc(tensor->length, sizeof(double));
-
-  return tensor;
-}
-
-struct Tensor *ones(unsigned int rank, unsigned int *shape) {
-  struct Tensor *tensor = tensor_init(rank, shape);
-
-  for (unsigned int i = 0; i < tensor->length; i++)
-    tensor->data[i] = 1.0;
-  
-  return tensor;
-}
-
-struct Tensor *tensor_rand(unsigned int rank, unsigned int *shape, unsigned int seed) {
-  struct Tensor *tensor = tensor_init(rank, shape);
-  
-  srand(seed);
-  for (unsigned int i = 0; i < tensor->length; i++) {
-    tensor->data[i] = (double)rand() / RAND_MAX;
-  }
-
-  return tensor;
-}
-

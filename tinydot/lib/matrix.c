@@ -34,7 +34,7 @@ double matrix_trace(struct Tensor *tensor) {
   return trace;
 }
 
-void matrix_transpose(struct Tensor *tensor) {
+unsigned int *matrix_transpose(struct Tensor *tensor) {
   int rows = tensor->shape[0];
   int cols = tensor->shape[1];
   double *data = calloc(rows * cols, sizeof(double));
@@ -47,6 +47,8 @@ void matrix_transpose(struct Tensor *tensor) {
   tensor->shape[0] = cols;
   tensor->shape[1] = rows;
   tensor->data = data;
+
+ return tensor->shape;
 }
 
 double matrix_determinant(struct Tensor *tensor) {
