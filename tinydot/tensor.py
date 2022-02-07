@@ -2,8 +2,6 @@ from ctypes import *
 from tinydot.lib import LIB
 from tinydot._utils import _flatten, _get_index, _reshape
 
-# TODO - print tensor with correct shape
-
 class TensorData(Structure):
   _fields_ = [
     ('rank', c_uint),
@@ -45,8 +43,9 @@ class Tensor:
   
   @property
   def length(self):
-    return TensorData.from_address(self.pointer).length
-    
+    return self.get().length
+   
+  # TODO - print tensor with correct shape
   @property
   def data(self):
     return _reshape([self.get().data[i] for i in range(self.length)], self.shape)
