@@ -12,9 +12,6 @@ class Singleton(type):
 
 class LIB(metaclass=Singleton):
   def __init__(self):
-    # TODO - find better way to do this
-    # self.lib = CDLL(Path().resolve() / '../build/c_lib.so')
-    # self.lib = CDLL('/opt/homebrew/lib/python3.9/site-packages/lib.cpython-39-darwin.so')
     _libfile = Path(__file__).parent.parent / "tinydot_lib.so"
     self.lib = CDLL(str(_libfile))
     

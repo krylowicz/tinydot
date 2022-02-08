@@ -1,7 +1,5 @@
-from distutils import cmd
 import os
 from setuptools import setup, Extension
-# from setuptools.command.build_ext import build_ext as build_ext_setuptools
 from distutils.command.build_ext import build_ext as build_ext_setuptools
 
 C_SOURCES = []
@@ -12,7 +10,7 @@ with open(os.path.join(directory, 'README.md'), encoding='utf-8') as f:
 
 with os.scandir('tinydot/lib') as it:
   for entry in it:
-    if not entry.name.startswith('.') and entry.is_file() and not entry.name.endswith('.h'):
+    if entry.is_file() and not entry.name.startswith('.') and not entry.name.endswith('.h'):
       C_SOURCES.append(entry.path)
 
 class CTypesExtension(Extension): pass
