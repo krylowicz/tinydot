@@ -34,7 +34,7 @@ double matrix_trace(struct Tensor *tensor) {
   return trace;
 }
 
-void matrix_transpose(struct Tensor *tensor) {
+unsigned int *matrix_transpose(struct Tensor *tensor) {
   int rows = tensor->shape[0];
   int cols = tensor->shape[1];
   double *data = calloc(rows * cols, sizeof(double));
@@ -47,6 +47,8 @@ void matrix_transpose(struct Tensor *tensor) {
   tensor->shape[0] = cols;
   tensor->shape[1] = rows;
   tensor->data = data;
+
+ return tensor->shape;
 }
 
 double matrix_determinant(struct Tensor *tensor) {
@@ -80,6 +82,29 @@ struct Tensor *matrix_identity(unsigned int rank, unsigned int *shape) {
 
   return matrix;
 }
+
+// struct Tensor *matrix_inverse(struct Tensor *tensor) {
+//   int rows = tensor->shape[0];
+//   struct Tensor *ct = tensor_copy(tensor);
+//   struct Tensor *I = matrix_identity(tensor->rank, tensor->shape);
+//   struct Tensor *cI = tensor_copy(I);
+
+//   unsigned int *indices = malloc(rows * sizeof(unsigned int));
+//   for (unsigned int i = 0; i < rows; i++)
+//     indices[i] = i;
+  
+//   for (unsigned int fd = 0; fd < rows; fd++) {
+//     const unsigned int fd_scaler = 1.0 / ct->data[fd * rows + fd];
+
+//     for (unsigned int i = 0; i < rows; i++) {
+//       ct->data[fd * rows + i] *= fd_scaler;
+//       I->data[fd * rows + i] *= fd_scaler;
+//     }
+
+    
+//   }
+
+// }
 
 struct Tensor *matmul(struct Tensor *A, struct Tensor *B) {
   int A_rows = A->shape[0];
