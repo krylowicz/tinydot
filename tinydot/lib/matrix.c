@@ -51,6 +51,16 @@ unsigned int *matrix_transpose(struct Tensor *tensor) {
  return tensor->shape;
 }
 
+struct Tensor *matrix_identity(unsigned int rank, unsigned int *shape) {
+  struct Tensor *matrix = zeros(rank, shape);
+  int rows = matrix->shape[0];
+
+  for (unsigned int i = 0; i < rows; i++) 
+    matrix->data[i * rows + i] = 1.0;
+
+  return matrix;
+}
+
 double matrix_determinant(struct Tensor *tensor) {
   int rows = tensor->shape[0];
   struct Tensor *ct = tensor_copy(tensor);
@@ -69,18 +79,39 @@ double matrix_determinant(struct Tensor *tensor) {
   double det = 1.0;
   for (unsigned int i = 0; i < rows; i++)
     det *= ct->data[i * rows + i];
-  
+
   return det;
 }
 
-struct Tensor *matrix_identity(unsigned int rank, unsigned int *shape) {
-  struct Tensor *matrix = zeros(rank, shape);
+struct Tensor *matrix_inverse(struct Tensor *matrix) { 
   int rows = matrix->shape[0];
+  int cols = matrix->shape[1];
 
-  for (unsigned int i = 0; i < rows; i++) 
-    matrix->data[i * rows + i] = 1.0;
+  // TODO: remove memory lekage
+  struct Tensor *AM = tensor_copy(matrix);
+  struct Tensor *I = matrix_identity(matrix->rank, matrix->shape);
 
-  return matrix;
+  for (unsigned int fd = 0; fd < rows; ++fd) {
+    double fd_scalar = 1.0 / AM->data[fd * rows + fd];
+
+    for (unsigned int j = 0; j < cols; ++j) {
+      AM->data[fd * rows + j] *= fd_scalar;
+      I->data[fd * rows + j] *= fd_scalar;
+    }
+
+    for (unsigned int i = 0; i < rows; ++i) {
+      if (i != fd) {
+        double cr_scalar = AM->data[i * rows + fd];
+
+        for (unsigned int j = 0; j < cols; ++j) {
+          AM->data[i * rows + j] -= cr_scalar * AM->data[fd * rows + j];
+          I->data[i * rows + j] -= cr_scalar * I->data[fd * rows + j];
+        }
+      }
+    }
+  }
+
+  return I;
 }
 
 struct Tensor *matmul(struct Tensor *A, struct Tensor *B) {
@@ -90,7 +121,7 @@ struct Tensor *matmul(struct Tensor *A, struct Tensor *B) {
   int B_cols = B->shape[1];
   unsigned int shape[2] = {A_rows, B_cols};
   struct Tensor *C = zeros(2, shape);
- 
+
   for (unsigned int i = 0; i < A_rows; i++) {
     for (unsigned int j = 0; j < B_cols; j++) {
       double total = 0.0;
@@ -102,4 +133,3 @@ struct Tensor *matmul(struct Tensor *A, struct Tensor *B) {
 
   return C;
 }
-

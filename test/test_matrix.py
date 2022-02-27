@@ -1,5 +1,5 @@
 import unittest
-import tinydot as td
+from tinydot._utils import _flatten
 from tinydot.matrix import Matrix
 
 class TestMatrix(unittest.TestCase):
@@ -53,22 +53,23 @@ class TestMatrix(unittest.TestCase):
       [0.0, 0.0, 1.0, 0.0],
       [0.0, 0.0, 0.0, 1.0]
     ])
-  
-  # TODO: matrix inverse
-  # def test_inv(self):
-  #   matrix = Matrix([
-  #     [5., 3., 1.],
-  #     [3., 9., 4.],
-  #     [1., 3., 5.]
-  #   ])
-    
-  #   inv = matrix.inv()
 
-  #   self.assertEqual(inv.data, [
-  #     [ 0.25,  -0.091,  0.023],
-  #     [-0.083,  0.182, -0.129],
-  #     [ 0.,    -0.091,  0.273]
-  #   ])
+  def test_inv(self):
+    matrix = Matrix([
+      [5., 3., 1.],
+      [3., 9., 4.],
+      [1., 3., 5.]
+    ])
+
+    inv_data = Matrix.inv(matrix).data
+    correct_data = [
+      [ 0.25,  -0.091,  0.023],
+      [-0.083,  0.182, -0.129],
+      [ 0.,    -0.091,  0.273]
+    ]
+
+    for inv_v, correct_v in zip(_flatten(inv_data), _flatten(correct_data)):
+      self.assertAlmostEqual(inv_v, correct_v, places=3)
 
   def test_matmul(self):
     A = Matrix([
@@ -128,10 +129,10 @@ class TestMatrix(unittest.TestCase):
     matrix = A * 2
     self.assertEqual(matrix.data, [[2.0, 4.0, 6.0], [6.0, 8.0, 4.0], [6.0, 4.0, 2.0]])
 
-  def test_random(self): 
-    tensor = td.random(3, 2)
-    self.assertEqual(tensor.data, [
-      [0.00032870750889587566, 0.5245871020129822],
-      [0.7354235321913956, 0.26330554078487006],
-      [0.37622397131110724, 0.19628582577979464]
-    ])
+  # def test_random(self): 
+  #   tensor = td.random(3, 2)
+  #   self.assertEqual(tensor.data, [
+  #     [0.00032870750889587566, 0.5245871020129822],
+  #     [0.7354235321913956, 0.26330554078487006],
+  #     [0.37622397131110724, 0.19628582577979464]
+  #   ])

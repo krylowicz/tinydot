@@ -24,7 +24,10 @@ void tensor_destroy(struct Tensor *tensor) {
 
 struct Tensor *tensor_copy(struct Tensor *tensor) {
   struct Tensor *new_tensor = zeros(tensor->rank, tensor->shape);
-  new_tensor->data = tensor->data;
+  
+  for (unsigned int i = 0; i < tensor->length; ++i)
+    new_tensor->data[i] = tensor->data[i];
+
   return new_tensor;
 }
 

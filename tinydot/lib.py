@@ -1,6 +1,5 @@
 from pathlib import Path
 from ctypes import *
-from ctypes.util import find_library
 
 class Singleton(type):
   _instances = {}
@@ -12,13 +11,15 @@ class Singleton(type):
 
 class LIB(metaclass=Singleton):
   def __init__(self):
-    _libfile = Path(__file__).parent.parent / "tinydot_lib.so"
+    # TODO: change import of .so file depending on package state
+    # _libfile = Path(__file__).parent.parent / "build/c_lib.so"
+    _libfile = Path(__file__).parent.paresnt / "tinydot_lib.so"
     self.lib = CDLL(str(_libfile))
     
     #api methods
     self.sqrt           = self.c_wrapper('api_sqrt',           c_void_p, [c_void_p])
     self.random         = self.c_wrapper('api_random',         c_void_p, [c_uint, POINTER(c_uint)])
-    self.prod           = self.c_wrapper('api_prod',           c_float,  [c_void_p])
+    self.prod           = self.c_wrapper('api_prod',           c_double,  [c_void_p])
     self.uniform        = self.c_wrapper('api_uniform',        c_void_p, [c_uint, POINTER(c_uint), c_double, c_double])
     # api_zeros and api_ones names give an error while linking?
     self.zeros          = self.c_wrapper('zeros',              c_void_p, [c_uint, POINTER(c_uint)])
@@ -43,6 +44,7 @@ class LIB(metaclass=Singleton):
     self.det            = self.c_wrapper('matrix_determinant', c_double,  [c_void_p])
     self.identity       = self.c_wrapper('matrix_identity',    c_void_p,  [c_uint, POINTER(c_int)])
     self.matmul         = self.c_wrapper('matmul',             c_void_p,  [c_void_p, c_void_p])
+    self.inv            = self.c_wrapper("matrix_inverse",     c_void_p, [c_void_p])
 
     #vector methods
     self.v_dot          = self.c_wrapper('vector_dot',         c_double,  [c_void_p, c_void_p])

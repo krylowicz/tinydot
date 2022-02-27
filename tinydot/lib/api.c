@@ -34,8 +34,8 @@ struct Tensor *api_uniform(unsigned int rank, unsigned int *shape, double low, d
   return tensor;
 }
 
-float api_prod(const struct Tensor *tensor) {
-  float res = 1.0f;
+double api_prod(const struct Tensor *tensor) {
+  double res = 1.0f;
 
   for (unsigned int i = 0; i < tensor->length; ++i) {
     res *= tensor->data[i];

@@ -49,6 +49,16 @@ class Matrix(Tensor):
     return cls(pointer=pointer)
 
   @classmethod
+  def inv(cls, matrix):
+    if matrix.shape[0] == matrix.shape[1] and matrix.det != 0:
+      pointer = LIB().inv(matrix.pointer)
+      return cls(pointer=pointer)
+    elif matrix.shape[0] != matrix.shape[1]:
+      raise ValueError("Matrix must be square to be inversible")
+    elif matrix.det == 0:
+      raise ValueError("Matrix must have non-zero determinant to be inversible")
+
+  @classmethod
   def matmul(cls, a, b):
     if a.shape[0] != b.shape[1]:
       raise ValueError("The number of columns in the first matrix must be equal to the number of rows in the second matrix")
