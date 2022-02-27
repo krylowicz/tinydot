@@ -48,8 +48,6 @@ class Matrix(Tensor):
     pointer = LIB().identity(rank, (c_data)(*shape))
     return cls(pointer=pointer)
 
-  # TODO - matrix inverse
-
   @classmethod
   def matmul(cls, a, b):
     if a.shape[0] != b.shape[1]:
@@ -57,7 +55,6 @@ class Matrix(Tensor):
     pointer = LIB().matmul(a.pointer, b.pointer)
     return cls(pointer=pointer)
 
-  # overrides Tensor dot method
   @classmethod
   def dot(cls, a, b):
     return cls.matmul(a, b)
