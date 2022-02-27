@@ -27,7 +27,7 @@ class build_ext(build_ext_setuptools):
   def get_ext_filename(self, ext_name):
     if self._ctypes:
       print('get_ext_filename', ext_name)
-      return ext_name + '.so'
+      return f'{ext_name}.so'
     return super().get_ext_filename(ext_name)
 
 setup(
