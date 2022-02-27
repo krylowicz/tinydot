@@ -1,5 +1,6 @@
 from pathlib import Path
 from ctypes import *
+from ctypes.util import find_library
 
 class Singleton(type):
   _instances = {}
@@ -11,9 +12,9 @@ class Singleton(type):
 
 class LIB(metaclass=Singleton):
   def __init__(self):
-    # TODO - find better way to do this
-    self.lib = CDLL(Path().resolve() / '../build/c_lib.so')
-
+    _libfile = Path(__file__).parent.parent / "tinydot_lib.so"
+    self.lib = CDLL(str(_libfile))
+    
     #api methods
     self.sqrt           = self.c_wrapper('api_sqrt',           c_void_p, [c_void_p])
     self.random         = self.c_wrapper('api_random',         c_void_p, [c_uint, POINTER(c_uint)])
@@ -25,6 +26,7 @@ class LIB(metaclass=Singleton):
     self.maximum        = self.c_wrapper('maximum',            c_void_p, [c_void_p, c_void_p])
     self.maximum_scalar = self.c_wrapper('maximum_scalar',     c_void_p, [c_void_p, c_int])
     self.exp            = self.c_wrapper('exponent',           c_void_p, [c_void_p])
+    self.arange         = self.c_wrapper('arange',             c_void_p, [c_int, c_int, c_uint, POINTER(c_uint), c_int])
 
     #tensor / generic methods
     self.init           = self.c_wrapper('tensor_init',        c_void_p, [c_uint, POINTER(c_int)])
@@ -37,7 +39,7 @@ class LIB(metaclass=Singleton):
     #matrix methods
     self.norm           = self.c_wrapper('matrix_norm',        c_double,  [c_void_p])
     self.trace          = self.c_wrapper('matrix_trace',       c_double,  [c_void_p])
-    self.T              = self.c_wrapper('matrix_transpose',   POINTER(c_uint),      [c_void_p])
+    self.T              = self.c_wrapper('matrix_transpose',   POINTER(c_uint), [c_void_p])
     self.det            = self.c_wrapper('matrix_determinant', c_double,  [c_void_p])
     self.identity       = self.c_wrapper('matrix_identity',    c_void_p,  [c_uint, POINTER(c_int)])
     self.matmul         = self.c_wrapper('matmul',             c_void_p,  [c_void_p, c_void_p])

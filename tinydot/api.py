@@ -7,7 +7,7 @@ from .vector import Vector
 
 # TODO - TESTS FOR API
 
-# This file contains tinydot API for initialization and generic math methods for tinydot's data structures.
+# This file contains API for initialization and generic math methods for tinydot's data structures.
 
 def _get_cls(object=None, shape=None):
   if isinstance(object, Tensor) or len(shape) > 2:
@@ -86,4 +86,11 @@ def ones(*shape):
   rank = 1 if isinstance(shape, int) else len(shape)
   c_data = rank * _ct.c_uint
   pointer = _LIB().ones(rank, (c_data)(*shape))
+  return _get_cls(shape=shape)(pointer=pointer)
+
+def arange(*, start=0, stop, step=1, shape):
+  # check if interval matches shape
+  rank = 1 if isinstance(shape, int) else len(shape)
+  c_data = rank * _ct.c_uint
+  pointer = _LIB().arange(start, stop, rank, (c_data)(*shape), step)
   return _get_cls(shape=shape)(pointer=pointer)
