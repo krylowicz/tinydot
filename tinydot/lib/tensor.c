@@ -38,12 +38,9 @@ void tensor_set(struct Tensor *tensor, double *data) {
 
 struct Tensor *tensor_add(struct Tensor *t1, struct Tensor *t2) {
   struct Tensor *result = tensor_init(t1->rank, t1->shape);
-  double *data = malloc(t1->length * sizeof(double));
 
   for (unsigned int i = 0; i < t1->length; i++)
-    data[i] = t1->data[i] + t2->data[i]; 
-
-  tensor_set(result, data);
+    result->data[i] = t1->data[i] + t2->data[i]; 
 
   return result;
 } 
@@ -51,12 +48,9 @@ struct Tensor *tensor_add(struct Tensor *t1, struct Tensor *t2) {
 // TODO - mul
 struct Tensor *mul(struct Tensor *tensor, double scalar) {
   struct Tensor *result = tensor_init(tensor->rank, tensor->shape);
-  double *data = malloc(tensor->length * sizeof(double));
-
+  
   for (unsigned int i = 0; i < tensor->length; i++)
-    data[i] = tensor->data[i] * scalar;
-
-  tensor_set(result, data);
+    result->data[i] = tensor->data[i] * scalar;
 
   return result;
 }

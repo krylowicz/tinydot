@@ -48,6 +48,8 @@ unsigned int *matrix_transpose(struct Tensor *tensor) {
   tensor->shape[1] = rows;
   tensor->data = data;
 
+  free(data);
+
  return tensor->shape;
 }
 
@@ -87,7 +89,6 @@ struct Tensor *matrix_inverse(struct Tensor *matrix) {
   int rows = matrix->shape[0];
   int cols = matrix->shape[1];
 
-  // TODO: remove memory lekage
   struct Tensor *AM = tensor_copy(matrix);
   struct Tensor *I = matrix_identity(matrix->rank, matrix->shape);
 
