@@ -12,8 +12,8 @@ class Singleton(type):
 class LIB(metaclass=Singleton):
   def __init__(self):
     # TODO: change import of .so file depending on package state
-    # _libfile = Path(__file__).parent.parent / "build/c_lib.so"
-    _libfile = Path(__file__).parent.paresnt / "tinydot_lib.so"
+    _libfile = Path(__file__).parent.parent / "build/c_lib.so"
+    # _libfile = Path(__file__).parent.parent / "tinydot_lib.so"
     self.lib = CDLL(str(_libfile))
     
     #api methods

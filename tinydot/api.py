@@ -1,4 +1,5 @@
 import ctypes as _ct
+import math
 
 from .lib import LIB as _LIB
 from .tensor import Tensor
@@ -55,7 +56,7 @@ def maximum(tensor, max):
   elif Tensor.match_shapes(tensor, max):
     pointer = _LIB().maximum(tensor.pointer, max)
   return _get_cls(object=tensor)(pointer=pointer)
-
+ 
 def uniform(low=0.0, high=1.0, shape=None):
   pointer = None
   if shape:
@@ -68,6 +69,7 @@ def uniform(low=0.0, high=1.0, shape=None):
   
   return _get_cls(shape=shape)(pointer=pointer)
   
+# TODO: add random with seed
 def random(*shape):
   rank = 1 if isinstance(shape, int) else len(shape)
   pointer = _LIB().random(rank, (rank * _ct.c_uint)(*shape))
@@ -89,7 +91,9 @@ def ones(*shape):
   return _get_cls(shape=shape)(pointer=pointer)
 
 def arange(*, start=0, stop, step=1, shape):
-  # check if interval matches shape
+  if size := stop - start != math.prod(shape):
+    raise ValueError(f"Cannot reshape tensor of size {size} into shape {shape}")
+
   rank = 1 if isinstance(shape, int) else len(shape)
   c_data = rank * _ct.c_uint
   pointer = _LIB().arange(start, stop, rank, (c_data)(*shape), step)
