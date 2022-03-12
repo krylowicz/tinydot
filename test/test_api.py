@@ -24,7 +24,10 @@ class TestApi(unittest.TestCase):
 
   def test_get_cls(self):
     x = td.arange(stop=6, shape=(2, 3))
-    self.assertEqual(_get_cls(x), td.Matrix)
+    self.assertEqual(_get_cls(shape=x.shape), td.Matrix)
+
+    y = td.ones(4)
+    self.assertEqual(_get_cls(object=y), td.Vector)
 
   def test_sum(self):
     x = td.arange(stop=24, shape=(2, 3, 4))
@@ -48,6 +51,9 @@ class TestApi(unittest.TestCase):
       [54.0, 70.0, 86.0]
     ])
 
+    d = td.sum(x)
+    self.assertEqual(d, 276)
+
   def test_ones(self):
     x = td.ones(2, 3)
 
@@ -60,14 +66,13 @@ class TestApi(unittest.TestCase):
   # TODO: how to test uniform?
 
   def test_maximum(self):
-    x = td.arange(stop=24, shape=(2, 3, 4))
-    # TODO: arange returns wrong class type
+    x = td.arange(stop=6, shape=(2, 3))
     y = td.maximum(x, x.T)
 
     self.assertEqual(y.data, [
-      [12.0, 14.0, 16.0, 18.0],
-      [20.0, 22.0, 24.0, 26.0],
-      [28.0, 30.0, 32.0, 34.0]
+      [0.0, 3.0],
+      [1.0, 4.0],
+      [2.0, 5.0]
     ])
 
     # write a test for maximum scalar

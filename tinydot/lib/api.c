@@ -114,12 +114,9 @@ struct Tensor *exponent(const struct Tensor *tensor) {
 
 struct Tensor *arange(int start, int stop, unsigned int rank, unsigned int *shape, int step) {
   struct Tensor *tensor = tensor_init(rank, shape);
-  double *data = malloc(tensor->length * sizeof(double));
 
-  for (unsigned int i = 0; i < stop; i++)
-    data[i] = start + i * step;
-
-  tensor_set(tensor, data);
+  for (unsigned int i = 0; i < tensor->length; i++)
+    tensor->data[i] = start + i * step;
 
   return tensor;
 }

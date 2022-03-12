@@ -46,9 +46,9 @@ unsigned int *matrix_transpose(struct Tensor *tensor) {
 
   tensor->shape[0] = cols;
   tensor->shape[1] = rows;
-  tensor->data = data;
 
-  free(data);
+  free(tensor->data);
+  tensor->data = data;
 
  return tensor->shape;
 }

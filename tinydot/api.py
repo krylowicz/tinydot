@@ -6,19 +6,26 @@ from .tensor import Tensor
 from .matrix import Matrix
 from .vector import Vector
 
-# TODO - TESTS FOR API
 
 # This file contains API for initialization and generic math methods for tinydot's data structures.
 
 def _get_cls(object=None, shape=None):
-  if isinstance(object, Tensor) or len(shape) > 2:
-    return Tensor
-  elif isinstance(object, Matrix) or len(shape) == 2:
-    return Matrix
-  elif isinstance(object, Vector) or len(shape) == 1:
-    return Vector
-  else:
-    raise TypeError(f"Can't get class of type {type(object)}")
+  if object:
+    if type(object) == Tensor:
+      return Tensor
+    elif type(object) == Matrix:
+      return Matrix
+    elif type(object) == Vector:
+      return Vector
+  if shape:
+    if len(shape) > 2:
+      return Tensor
+    elif len(shape) == 2:
+      return Matrix
+    elif len(shape) == 1:
+      return Vector
+
+  raise TypeError(f"Can't get class of type {type(object)}")
 
 def copy(tensor):
   pointer = _LIB().copy(tensor.pointer)
@@ -50,15 +57,13 @@ def sqrt(tensor):
     return f"Can't take element-wise square root of type {type(tensor)}"
 
 def maximum(tensor, max):
-  pointer = None
   if isinstance(max, (int, float)):
     pointer = _LIB().maximum_scalar(tensor.pointer, max)
   elif Tensor.match_shapes(tensor, max):
-    pointer = _LIB().maximum(tensor.pointer, max)
+    pointer = _LIB().maximum(tensor.pointer, max.pointer)
   return _get_cls(object=tensor)(pointer=pointer)
  
 def uniform(low=0.0, high=1.0, shape=None):
-  pointer = None
   if shape:
     rank = len(shape)
     c_data = rank * _ct.c_uint

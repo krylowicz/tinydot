@@ -24,7 +24,7 @@ class Tensor:
         raise TypeError(f"Can't create tensor from shape of type {type(shape[0])}")
 
   def __repr__(self):
-    return self.pointer
+    return f"{self.pointer}"
 
   def __str__(self):
     return f"<Tensor with shape {self.shape}>"
@@ -137,7 +137,6 @@ class Tensor:
 
   @classmethod
   def uniform(cls, low=0.0, high=1.0, shape=None):
-    pointer = None
     if shape:
       rank = len(shape)
       c_data = rank * c_uint
