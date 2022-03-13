@@ -13,7 +13,10 @@ Everything in tinydot is based on nd Tensor structure, i.e. a matrix is a 2d ten
 tinydot also support basic operations on Tensors.
 
 ## Installation
-If you would like to play around with this framework, you can install it using pip directly from GitHub by running `pip install git+https://github.com/krylowicz/tinydot/tree/master`.
+If you would like to play around with this framework, you can install it using pip directly from GitHub by running 
+```
+pip install git+https://github.com/krylowicz/tinydot.git`.
+```
 
 Here's an example:
 ```python

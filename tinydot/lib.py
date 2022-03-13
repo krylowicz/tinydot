@@ -11,9 +11,8 @@ class Singleton(type):
 
 class LIB(metaclass=Singleton):
   def __init__(self):
-    # TODO: change import of .so file depending on package state
-    _libfile = Path(__file__).parent.parent / "build/c_lib.so"
-    # _libfile = Path(__file__).parent.parent / "tinydot_lib.so"
+    # _libfile = Path(__file__).parent.parent / "build/c_lib.so"
+    _libfile = Path(__file__).parent.parent / "tinydot_lib.so"
     self.lib = CDLL(str(_libfile))
     
     #api methods
@@ -21,7 +20,6 @@ class LIB(metaclass=Singleton):
     self.random         = self.c_wrapper('api_random',         c_void_p, [c_uint, POINTER(c_uint)])
     self.prod           = self.c_wrapper('api_prod',           c_double,  [c_void_p])
     self.uniform        = self.c_wrapper('api_uniform',        c_void_p, [c_uint, POINTER(c_uint), c_double, c_double])
-    # api_zeros and api_ones names give an error while linking?
     self.zeros          = self.c_wrapper('zeros',              c_void_p, [c_uint, POINTER(c_uint)])
     self.ones           = self.c_wrapper('ones',               c_void_p, [c_uint, POINTER(c_uint)])
     self.maximum        = self.c_wrapper('maximum',            c_void_p, [c_void_p, c_void_p])

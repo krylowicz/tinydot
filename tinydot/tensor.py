@@ -24,7 +24,7 @@ class Tensor:
         raise TypeError(f"Can't create tensor from shape of type {type(shape[0])}")
 
   def __repr__(self):
-    return f"{self.pointer}"
+    return str(self.data)
 
   def __str__(self):
     return f"<Tensor with shape {self.shape}>"
@@ -96,22 +96,6 @@ class Tensor:
       return cls(pointer=pointer)
     else:
       raise TypeError(f"Can't multiply tensor with type {type(scalar)}")
-
-  # TODO - Tensor dot product
-  # @classmethod
-  # def dot(cls, t1, t2):
-  #   if Tensor.match_shapes(t1, t2):
-  #     pointer = LIB().dot(t1.pointer, t2.pointer)
-  #     return cls(pointer=pointer)
-  #   else:
-  #     raise ValueError("Tensors must have matching shapes")
-
-  # def _is_on_axis(flat_tensor, i, axis):
-  #   if axis < 0:
-  #     axis += flat_tensor.rank
-  #   elif axis >= flat_tensor.rank:
-  #     raise IndexError(f"Axis {axis} is out of bounds")
-  #   return i % flat_tensor.shape[axis] != 0
 
   @classmethod
   def ones(cls, *shape):

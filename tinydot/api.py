@@ -31,7 +31,6 @@ def copy(tensor):
   pointer = _LIB().copy(tensor.pointer)
   return _get_cls(object=tensor)(pointer=pointer)
 
-# TODO - make it work for all cases
 def add(t1, t2):
   if Tensor.match_shapes(t1, t2):
     pointer = _LIB().add(t1.pointer, t2.pointer)
@@ -69,7 +68,6 @@ def uniform(low=0.0, high=1.0, shape=None):
     c_data = rank * _ct.c_uint
     pointer = _LIB().uniform(rank, (c_data)(*shape), low, high)
   else:
-    # TODO - change to scalar (now it's a vector)
     pointer = _LIB().uniform(1, (1 * _ct.c_uint)(1), low, high)
   
   return _get_cls(shape=shape)(pointer=pointer)
@@ -103,3 +101,6 @@ def arange(*, start=0, stop, step=1, shape):
   c_data = rank * _ct.c_uint
   pointer = _LIB().arange(start, stop, rank, (c_data)(*shape), step)
   return _get_cls(shape=shape)(pointer=pointer)
+
+def dot(t1, t2):
+  raise NotImplementedError
