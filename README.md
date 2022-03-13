@@ -1,10 +1,10 @@
 <p align='center'>
-    <img src='https://user-images.githubusercontent.com/22550143/158031381-0561f9fb-7db6-481f-aaab-ca8bd30697b6.svg' width="500px" height="500px">
+    <img src='https://user-images.githubusercontent.com/22550143/158031381-0561f9fb-7db6-481f-aaab-ca8bd30697b6.svg' width="300px" height="300px">
 </p>
 
 <hr />
 
-Tinydot is a Python wrapper for my tiny linear algebra library writen in C. The wrapper interacts with C code via `ctypes`.
+tinydot is a Python wrapper for my tiny linear algebra library writen in C. The wrapper interacts with C code via `ctypes`.
 
 ## How?
 
