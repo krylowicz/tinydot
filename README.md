@@ -1,8 +1,7 @@
 <p align='center'>
-    <img src='https://user-images.githubusercontent.com/22550143/158031381-0561f9fb-7db6-481f-aaab-ca8bd30697b6.svg' width="300px" height="300px">
+    <img src='https://user-images.githubusercontent.com/22550143/158031381-0561f9fb-7db6-481f-aaab-ca8bd30697b6.svg#gh-light-mode-only' width="300px" height="300px">
+    <img src='https://user-images.githubusercontent.com/22550143/159061080-04f2fbc7-da90-46cf-8f1c-e6a32759fbcb.svg#gh-dark-mode-only' width="300px" height="300px">
 </p>
-
-<hr />
 
 tinydot is a Python wrapper for my tiny linear algebra library writen in C. The wrapper interacts with C code via `ctypes`.
 
